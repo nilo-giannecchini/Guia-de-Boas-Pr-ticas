@@ -11,7 +11,7 @@ describe("myFunction", function () {
 
         // verifica se a função corresponde ao resultado esperado
         it("should append 2 strings", function () {
-            expect(myfunc.append('hello  ', 'world')).toEqual('hello world');
+            expect(myfunc.append('hello ', 'world')).toEqual('hello world');
         });
     });
 });
