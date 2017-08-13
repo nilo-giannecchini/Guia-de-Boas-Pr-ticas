@@ -2,11 +2,9 @@
 Um guia de boas práticas que possam reduzir as dificuldades de implementação, adaptação e manutenção de ambientes de integração contínua utilizando Node e GruntJS
 
 ## Ferramentas
-![NodeJS](https://nodejs.org/en/download/)
-
-![Visual Code](https://code.visualstudio.com/Download)
-
-![Git](https://git-scm.com/downloads)
+* [NodeJS](https://nodejs.org/en/download/)
+* [Visual Code](https://code.visualstudio.com/Download)
+* [Git](https://git-scm.com/downloads)
 
 ## Instalações
 Recomendamos a instalação do Visual Code para IDE de codificação por ser open source, com vários plugins que ajudam no desenvolvimento e por ter uma boa integração com as linguagens web utilizadas (HTML, CSS, JavaScript). Suporta tambem outras linguagens como c++, java, python e .net.
