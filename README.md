@@ -34,7 +34,7 @@ $ npm install -g grunt grunt-cli karma-cli
 ```
 ![Setup Inicial](/img/InitialSetup.png)
 
-Após a instalação, podemos executar o comando:
+Após a instalação, podemos executar o comando para verificar se o grunt-cli foi instalado corretamente. O warning ocorre pois o comando não encontrou o arquivo gruntfile para executar as tarefas.
 ```shell
 $ grunt -v
 ```
