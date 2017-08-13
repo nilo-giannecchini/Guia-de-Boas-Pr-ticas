@@ -12,6 +12,10 @@ Recomendamos a instalação do Visual Code para IDE de codificação por ser ope
 Após a instalação do Git, podemos ver sua versão na linha de comando
 ![Versão do Git](/img/VersaoGit.png)
 
+Com a instalação do NodeJs, instalamos a plataforma `node` e o gerenciador de pacotes `npm`.
+![Versão do Node](/img/NodeVersion.png)
+![Versão do Npm](/img/NpmVersion.png)
+
 ## Configurações
 
 ## Exemplos
