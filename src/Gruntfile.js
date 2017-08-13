@@ -27,8 +27,8 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('default', 'default task description', function () {
+    grunt.registerTask('hello', 'default task description', function () {
         console.log('hello world');
     });
-    grunt.registerTask('githook', ['githooks', 'karma:test']);
+    grunt.registerTask('default', ['githooks', 'karma:test']);
 };
