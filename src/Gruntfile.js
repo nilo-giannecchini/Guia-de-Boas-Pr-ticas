@@ -18,9 +18,9 @@ module.exports = function (grunt) {
 
         githooks: {
             all: {
-                // options: {
-                //     template: '../../.git/hooks/pre-commit.js'
-                // },
+                options: {
+                    template: '.git/hooks/pre-commit'
+                },
                 'pre-commit': 'karma'
             }
         }
