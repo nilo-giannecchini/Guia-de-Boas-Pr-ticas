@@ -10,8 +10,6 @@ Um guia de boas práticas que possa reduzir as dificuldades de implementação, 
 
 ## Instalações
 
----
-
 ### Ferramentas
 
 Recomendamos a instalação do Visual Code para IDE de codificação por ser open source, com vários plugins que ajudam no desenvolvimento e por ter uma boa integração com as linguagens web utilizadas (HTML, CSS, JavaScript). Suporta tambem outras linguagens como c++, java, python e .net.
@@ -99,37 +97,37 @@ Qualquer tipo de recurso do sistema (hardware, software, banda de rede, etc.) qu
 
 Os gargalos podem ocorrer em todos os níveis de arquitetura de um sistema, tais como a camada de rede, servidor de aplicações, servidor de dados e servidor web. Entretanto, conforme apontam muitos estudos e experiências, quem causa a maior parte dos gargalos de desempenho é o código do aplicativo.
 
-* Throughput
+#### Throughput
 
 Basicamente, throughput ou vazão é a capacidade da aplicação ou uma parte da mesma de executar uma operação de forma repetida, em um determinado período de tempo. Por exemplo, o throughput de uma página é a quantidade de vezes por segundo que conseguimos receber uma resposta dessa página.
 
 Esses números são muito importantes porque definem a capacidade da aplicação, medida em acessos por segundo, páginas por segundo ou megabits por segundo. A maior parte de todos os problemas de desempenho é causada por limitações no throughput.
 
-* Tempos de resposta
+#### Tempos de resposta
 
 É o tempo que a aplicação demora para concluir um processo de transação. No caso de uma página, é o tempo que a aplicação demora para dar o retorno apropriado para o usuário final. É importante medir o tempo de resposta porque a aplicação pode ser rejeitada pelo usuário se não responder dentro de um tempo esperado, mesmo tendo disponibilidade imediata – levando o mesmo a abandonar a página ou até mesmo acessar a página de concorrentes.
 
 O tempo de resposta envolve o período necessário para retornar à solicitação realizada no servidor web. Cada solicitação deve ser processada e enviada para o servidor de aplicação, que também pode realizar um pedido ao servidor de banco de dados. Tudo isso voltará pelo mesmo caminho até o usuário. O tempo necessário para o retorno também está relacionado com a latência da rede entre os servidores e o usuário.
 
-* Antes de tudo, avalie a infraestrutura da rede da aplicação
+#### Antes de tudo, avalie a infraestrutura da rede da aplicação
 
 Antes de executar cada teste de performance, faça uma avaliação minuciosa na infraestrutura da rede que suporta a aplicação. Se o sistema não suportar a carga de usuários dimensionada na aplicação, ele apresentará gargalos. Essa avaliação é de nível básico e validará a largura da banda, taxa de acessos, conexões etc.
 
 Um teste simples otimiza tempo e recursos, pois evita que tarefas demoradas e complexas sejam executadas em uma infraestrutura que futuramente não atenderá à carga esperada. Ao detectar qualquer sinal de gargalo, antes de executar os testes de performance propriamente ditos, a estrutura é readequada para suportar a carga estimada nos cenários de teste.
 
-* Evite iniciar com cenários complexos
+#### Evite iniciar com cenários complexos
 
 Na maioria das vezes, os testes iniciais são executados com cenários extremamente complexos, que operam muitos componentes da aplicação ao mesmo tempo. Esse tipo de abordagem não deixa os gargalos aparecerem, ocultando futuros problemas de desempenho.
 
 Antes mesmo da aplicação estar totalmente pronta para implantação, o ideal é realizar testes com cenários menos complexos, um de cada vez.
 
-* Nunca esqueça do think time
+#### Nunca esqueça do think time
 
 Think time (ou tempo de raciocínio) é o tempo definido em uma transação no mesmo ritmo de um usuário real. Os cenários tentam prever aquilo que os usuários normalmente fazem (navegar, pesquisar, login, comprar, etc.), e o tempo que eles levam para ler, pensar, digitar e clicar. Cada etapa de cada transação deve ter seu think time estabelecido. Dependendo do contexto da transação, o valor do think time irá variar e, por isso, não é aconselhável estabelecer um padrão.
 
 Um exemplo: o acesso à página de login pode demorar de 15 a 20 segundos para um usuário completar. Você pode informar à ferramenta de teste para usar um tempo randômico entre 15 e 20 segundos, ao invés de fixar um valor único. De qualquer forma, é sempre melhor definir um valor de think time do que não definir nenhum, caso contrário os cenários executados causarão um enorme impacto nos servidores, uma vez que transações sem think time ou com valores irreais acarretam sobrecarga nos mesmos. Deve-se sempre lembrar de modelar os cenários com tempos reais previstos de think time
 
-* Ambiente de testes
+#### Ambiente de testes
 
 Além de ser exclusivo para realização dos testes de performance, a infraestrutura da mesma deve ser a mais próxima possível da de produção. Todas as configurações, aplicativos, serviços, massa de dados e outros itens que fazem parte do ambiente de produção devem ser reproduzidos.
 
@@ -139,31 +137,31 @@ Uma aplicação simples com apenas um servidor é perfeitamente possível de ser
 
 Considere incorporar procedimentos que não são evidentes, pois a degradação do desempenho pode ocorrer em tarefas periódicas que não são identificadas facilmente como backup de base de dados, geração de relatórios demorados, etc.
 
-* Gargalos de performance podem ocultar outros gargalos
+#### Gargalos de performance podem ocultar outros gargalos
 
 Sistemas que utilizam muitas APIs devem ter atenção redobrada ao identificar gargalos (ler BOX 2). Uma API que não funciona como desejado pode esconder outros possíveis gargalos de outras APIs.
 
 Por exemplo, uma determinada aplicação possui três APIs. Ao final dos testes de performance, a análise dos resultados detectou que a API problemática gerou um tempo de resposta muito alto para uma certa página. Essa API não está respondendo como esperado, mas não há como garantir que as outras APIs estejam funcionando como deveriam. Se uma API demora para responder, o número de requests encaminhados para as APIs posteriores é reduzido, ocultando possíveis problemas nas mesmas.
 
-* O equipamento gerador de carga também deve ser testado
+#### O equipamento gerador de carga também deve ser testado
 
 Em um ambiente de testes, além da infraestrutura dos servidores utilizados pela aplicação (servidor web, de dados, etc.), existe também a estrutura geradora de carga. São equipamentos configurados para que uma determinada ferramenta de testes execute os cenários de testes, submetendo toda a estrutura utilizada pela aplicação à carga determinada.
 
 Uma estrutura geradora de carga pode esconder problemas e limitações que geram ruídos nos testes, ocasionando falsos resultados (como um número reduzido de throughput). Cada equipamento desse ambiente deve ser avaliado e os resultados individuais comparados em busca de inconsistências. O objetivo é identificar se um desses equipamentos tem consumo diferenciado (CPU, memória, banda, etc.).
 
-* Monitore os recursos do ambiente submetido à carga
+#### Monitore os recursos do ambiente submetido à carga
 
 Durante a execução dos testes de performance, é importante utilizar alguma ferramenta que monitore os diferentes recursos dos servidores como forma de acompanhar o seu comportamento conforme o crescimento e estabilidade da carga. Esse tipo de monitoramento se torna fundamental para verificar quando o hardware está se tornando um gargalo.
 
 Caso o testador possua conhecimentos avançados no sistema operacional do servidor, existem ferramentas nativas que monitoram os recursos, gravando os contadores selecionados conforme a necessidade de cada teste (ver seção Links).
 
-* Nunca inicie a carga de uma única vez
+#### Nunca inicie a carga de uma única vez
 
 Em cada ciclo de testes, a carga de usuários deve subir de forma gradativa durante um período longo de tempo, seguido de um tempo estável de pelo menos uma hora, para então descer gradativamente. Devem ser consideradas apenas as métricas do período estável, tanto no comportamento dos servidores quanto da aplicação. Ou seja, o que deve ser avaliado é apenas o tempo de carga estável de uma hora.
 
 Submeter o sistema à carga máxima de uma vez pode sobrecarregar a aplicação Web, e os resultados apresentados durante o período de testes podem não corresponder à realidade.
 
-* O poder da regeneração do ambiente de testes
+#### O poder da regeneração do ambiente de testes
 
 Um ambiente de testes é composto pelo gerador de carga e também pela aplicação que será submetida aos testes. É extremamente importante que antes de cada ciclo de teste executado, todos os ambientes estejam iguais, pois qualquer alteração pode acarretar resultados não correspondentes à realidade da aplicação.
 
@@ -171,7 +169,7 @@ Um exemplo: após o primeiro ciclo de testes, no servidor de dados, um dos banco
 
 Se esses ambientes forem criados em uma solução virtualizada, fica muito mais simples manter esse controle, pois essa tecnologia permite criar “checkpoints” que salvam um instantâneo do servidor, podendo este ser restaurado a qualquer momento revertendo a máquina virtual a um ponto específico do tempo.
 
-* Teste a aplicação considerando o uso após determinado período
+#### Teste a aplicação considerando o uso após determinado período
 
 Muitos testes de performance não consideram a utilização de toda a estrutura após determinado período. Uma pergunta que sempre deve ser feita é: “Como meu sistema vai se comportar daqui a um ano, quando quase 70.000 usuários forem registrados nos bancos?”.
 
@@ -179,31 +177,31 @@ As ferramentas de teste possuem relativa facilidade para preenchimento do banco 
 
 Os mesmos testes de performance executados anteriormente serão rodados com o intuito de alimentar os bancos, simulando a utilização prevista daqui a um determinado período. Assim é possível comparar os testes executados com poucos dados e os testes executados com muitos dados já inseridos no banco.
 
-* Se for possível, replique o ambiente do seu cliente
+#### Se for possível, replique o ambiente do seu cliente
 
 Se a aplicação a ser testada é um produto que já funciona em seu cliente, não seria ideal realizar os testes de performance com dados reais? É sempre importante manter o ambiente de testes o mais próximo possível do real e isso será de grande valia se existir a possibilidade de oferecer o teste utilizando os dados reais do cliente.
 
 O importante nessa situação é sempre garantir que dados críticos do cliente serão protegidos ou removidos, com sua ciência e autorização prévia.
 
-* Isole o ambiente de testes
+#### Isole o ambiente de testes
 
 Utilizando um ambiente de testes dedicado, é importante isolar a sua rede do restante da rede da empresa para que nenhuma das duas seja afetada durante as atividades de teste. Além dos testes utilizarem uma parte considerável da banda de rede, a própria atividade da empresa pode afetar as simulações e seus resultados, pois obviamente utiliza uma parte da banda. Também se deve garantir que somente usuários virtuais autorizados acessarão seu aplicativo em teste.
 
-* Participe ativamente desde o início do projeto
+#### Participe ativamente desde o início do projeto
 
 É natural que o teste de performance seja executado somente ao final do projeto (caso a metodologia de desenvolvimento não envolva processos ágeis). Na maior parte das vezes, só é possível executar os testes no final do desenvolvimento da aplicação ou quando a mesma já está em implantação pelo cliente. De qualquer forma, é importante que o testador participe também do projeto durante o desenvolvimento do produto. Devemos lembrar que os cenários propostos devem combinar e simular um cenário real com a maior fidelidade possível. Participando do ciclo de vida do produto, o testador terá mais condições de criar os cenários de teste com entendimento adequado dos padrões comuns de uso.
 
 Objetivos mal definidos para os testes de performance são ocasionados por entendimento inadequado das expectativas dos testes, e muitas vezes vão acarretar na criação demorada de cenários complexos de forma desnecessária. Isto resulta em dados de performance inadequados para uma análise do real desempenho da aplicação.
 
-* Testes de performance devem procurar problemas de performance
+#### Testes de performance devem procurar problemas de performance
 
 Em alguns casos, as equipes procuram os testes de performance para confirmar seus requisitos ao invés de tentar identificar problemas. Essa visão pode até mesmo influenciar na criação dos cenários de teste. Se o objetivo é pura e simplesmente executar testes buscando confirmar os requisitos de desempenho da aplicação, a equipe dificilmente pensará em um cenário hipotético fora dos padrões para incluir nos testes. Um cenário não previsto pode deixar potenciais problemas ocultos.
 
-* Teste muitas vezes
+#### Teste muitas vezes
 
 Quando finalizar um determinado ciclo de teste de performance, utilize-o como um ponto de comparação e execute-o novamente com as mesmas definições mais de uma vez com o objetivo de procurar possíveis regressões de desempenho. Uma mudança simples não prevista pode causar algum problema inesperado, acarretando perdas de desempenho que não seriam detectadas em apenas um ciclo de avaliação. Por exemplo: foram definidos ciclos de teste de 100, 250, 300 e 500 usuários simultâneos. Nessa situação, não será executado apenas um ciclo de teste para cada carga de usuários, e sim cinco ciclos de teste para cada carga de usuários comparando os resultados entre si. Caso seja encontrada uma discrepância ao comparar os resultados, o problema deverá ser investigado em detalhes.
 
-* Para o tempo de resposta, considere a proporção de usuários que atingem a meta
+#### Para o tempo de resposta, considere a proporção de usuários que atingem a meta
 
 O tempo de resposta é o que define a satisfação de um usuário do sistema. Para esse valor, não consideramos o tempo médio que cada transação demora a responder. Deve-se buscar nos registros do teste quantos por cento dessas transações estão abaixo de um tempo de resposta estabelecido.
 
@@ -213,7 +211,7 @@ Portanto, o ideal é sempre determinar uma quantidade de usuários que serão at
 
 Nessa situação, analisando novamente os resultados, conclui-se que 78% das transações responderam no máximo em sete segundos, e as demais atingiram tempo de resposta superior a sete segundos. Considerando essa forma de análise, o sistema seria reprovado nos testes de desempenho.
 
-* Faça a sondagem com um único usuário
+#### Faça a sondagem com um único usuário
 
 Enquanto o aplicativo está sob carga, acesse-o e procure explorá-lo para ajudá-lo a compreender a experiência do usuário (como tempos de resposta). Por exemplo, acesse a aplicação pelo browser e navegue pelos cenários propostos, executando ações não previstas.
 
@@ -225,7 +223,7 @@ Percebe-se que o sucesso do teste de performance de uma aplicação não depende
 
 Construir e programar testes unitários ou outros tipos de testes pode não ser um exercício tão simples quanto se imagina. Não pela dificuldade da programação em si, mas pela criatividade e experiência necessária para se imaginar testes eficazes e concretos.
 
-* Se não deu erro, é por que funcionou
+#### Se não deu erro, é por que funcionou
 
 O teste chama algum método de negócios, que não retorna nada, e não verifica se os efeitos colaterais que seriam gerados pelo método foram efetivamente realizados.
 
@@ -235,7 +233,7 @@ Em suma, caímos nesse erro se considerarmos que o teste só “falha” se houv
 
 Note que em geral este tipo de problema ocorre em testes que não são verdadeiros testes de unidade, e sim testes de sistema, devido à dificuldade em se verificar os “efeitos colaterais”. Mas podem ocorrer variações deste anti-pattern até em cálculos simples; por exemplo o teste verifica apenas se o resultado é positivo, em vez de verificar o valor real esperado.
 
-* Fazer rollback no final do teste
+#### Fazer rollback no final do teste
 
 O teste chama um ou mais métodos cujo efeito é modificar registros no banco de dados, mas para evitar o problema de se ter que “zerar” as tabelas envolvidas (para manter a repetibilidade do teste), é feito um rollback no final.
 
@@ -245,7 +243,7 @@ Além disso, caso sejam usados Entity Beans ou frameworks de persistência objet
 
 Não podemos deixar de considerar que o commit da transação deve ser feito nos momentos corretos. O commit é parte integral da lógica sendo testada. Por exemplo, se o commit estiver fora do método que representa todo o processo de negócio, a camada de apresentação da aplicação poderá até mesmo “esquecer” de fazer o commit.
 
-* O próprio método de testes calcula o resultado esperado
+#### O próprio método de testes calcula o resultado esperado
 
 Um dado método de negócios implementa um algoritmo com diversas variações. Em vez de criar vários testes, cada qual chamando o mesmo método, porém variando os parâmetros de entrada (e as respostas esperadas), cria-se um teste “genérico” que calcula as respostas esperadas e então chama o método de negócios apropriado.
 
@@ -253,13 +251,13 @@ Além de representar uma duplicação desnecessária de lógica (implementando o
 
 Do jeito que foi apresentado, pode parecer uma situação trivial, fácil de se identificar. Mas o programador pode tomar “atalhos” para produzir rapidamente o teste. Por exemplo, quando o resultado de um método depende de uma tabela de consulta e o teste é codificado para usar a mesma tabela.
 
-* Testar apenas o funcionamento correto
+#### Testar apenas o funcionamento correto
 
 O método nunca é chamado com argumentos inválidos, então não se sabe se ele irá gerar as exceções esperadas ou de alguma forma dar o feebdack correto para o usuário
 
 Aqui não temos exatamente um erro de um teste em especial, mas um erro na concepção de toda uma suíte de testes. É importante testar se cada método faz sua validação de argumentos e tratamento de erros da forma correta. Especialmente quando um método pode ser chamado usando-se argumentos derivados de fontes externas, como um formulário HTML, um banco de dados ou um arquivo em disco. As falhas de segurança mais comuns em aplicações web decorrem deste anti-pattern.
 
-* Testar várias situações diferentes em um único teste
+#### Testar várias situações diferentes em um único teste
 
 Um único método de negócios pode gerar múltiplas situações de teste, de acordo com apenas os valores dos seus argumentos, e um único teste exercita todas essas variações.
 
@@ -269,7 +267,7 @@ Um teste construído desta forma pode até servir para indicar se o método como
 
 Outra variação deste anti-pattern é na verdade um erro de projeto da aplicação. Se existe uma seqüência de métodos que deve ser chamada na ordem correta para gerar certo resultado, esta seqüência deveria estar encapsulada em um único método de negócios, e é este método que seria testado. Mas ter a seqüência correta dentro de um método de teste não garante que a mesma seqüência foi implementada corretamente dentro da aplicação.
 
-* Confundir Testes de Unidade com Testes de Sistema
+#### Confundir Testes de Unidade com Testes de Sistema
 
 Cria-se um teste de unidade onde o sucesso ou falha do teste depende de métodos e classes diferentes do alvo do teste.
 
@@ -277,7 +275,7 @@ Um teste de unidade deve testar uma classe ou um método isoladamente, sem nenhu
 
 Nem sempre será possível ou viável criar verdadeiros testes de unidade para todas as classes e métodos. Já os testes de sistema devem ser isolados para que, antes da sua execução (ou em caso de falhas), seja fácil verificar falhas de ambiente, ou acionar o desenvolvedor responsável pelo componente que causou a falha. Isso também ajuda a separar testes longos de testes rápidos, e a agendar freqüências de execução diferenciadas para cada um. Em projetos envolvendo uma equipe grande ou muitos casos de uso, pode se tornar inviável executar sempre todos os testes. Assim, será necessário ter agendas separadas para a execução de diferentes tipos de testes.
 
-* Construir testes que não podem ser repetidos
+#### Construir testes que não podem ser repetidos
 
 O funcionamento do teste depende do programador ajustar manualmente algum pré-requisito, como inserir dados de teste no banco de dados.
 
