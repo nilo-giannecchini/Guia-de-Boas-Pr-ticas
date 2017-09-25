@@ -57,7 +57,270 @@ Após a instalação, podemos executar o comando para verificar se o grunt-cli f
 
 ## Configurações
 
+### Karma
+
+```javascript
+// Karma configuration
+module.exports = function(config) {
+  config.set({
+
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: "./",
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ["jasmine"],
+
+    // list of files / patterns to load in the browser
+    files: [
+      "app/bower_components/angular/angular.js",
+      "app/bower_components/angular-mocks/angular-mocks.js",
+      "app/bower_components/angular-route/angular-route.js",
+      "app/bower_components/angular-ui-router/release/angular-ui-router.js",
+      "app/js/*.js",
+      "app/js/**/**/*.js",
+      "test/unit/*.js",
+      "test/unit/**/*.js"
+    ],
+
+    // list of files to exclude
+    exclude: [
+    ],
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+   preprocessors: { "app/js/**/**/*.js": ["coverage"] },
+
+    // test results reporter to use
+    // possible values: "dots", "progress"
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ["progress", "coverage", "junit"],
+    
+    coverageReporter: {
+      dir: "reports/coverage/",
+      reporters: [
+        { type: "html", subdir: "report-html" },
+        { type: "cobertura", subdir: ".", file: "cobertura-coverage.xml" }
+      ]
+    },
+    
+    junitReporter: {
+      outputDir: "reports/unit-tests",
+      outputFile: "test-results.xml",
+      suite: "unit-tests",
+      useBrowserName: false
+    },
+    
+    plugins : [
+      "karma-jasmine",
+      "karma-phantomjs-launcher",
+      "karma-chrome-launcher",
+      "karma-coverage",
+      "karma-junit-reporter"
+    ],
+    
+    // web server port
+    port: 9876,
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+    
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ["PhantomJS"],
+
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: true,
+
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity
+  })
+}
+```
+
+### GruntJS
+
+```javascript
+var grunt = require('grunt');
+var bootlint = require('grunt-bootlint');
+var gutil = require("grunt-util");
+var Server = require('karma').Server;
+
+var itensRelatorioBootlint = []; //Itens do relatório do bootlint
+
+// Run test once and exit
+grunt.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+// Análise dos arquivos html
+grunt.task("bootlint", function () {
+    var fileIssues = [];
+    console.log();
+
+    gutil.log(gutil.colors.blue("Consulte o glossário de códigos em: https://github.com/twbs/bootlint/wiki/"));
+
+    console.log();
+
+    return grunt.src("./app/views/*.html")
+        .pipe(bootlint({
+            stoponerror: false,
+            stoponwarning: false,
+            loglevel: "debug",
+            disabledIds: [], //desabilitar regras específicas
+            issues: fileIssues,
+            reportFn: function (file, lint, isError, isWarning, errorLocation) {
+
+                var message = (isError) ? gutil.colors.red("ERROR! - ") : gutil.colors.yellow("WARN! - ");
+                if (errorLocation) {
+                    message += file.path + " (line:" + (errorLocation.line + 1) + ", col:" + (errorLocation.column + 1) + ") [" + lint.id + "] " + lint.message;
+                } else {
+                    message += file.path + ": " + lint.id + " " + lint.message;
+                }
+
+                gutil.log(message + "\n");
+                message = message + "\n";
+
+                var item = {};
+                item.arquivo = file.path;
+                item.temErro = false;
+                item.isWarning = isWarning;
+                item.isError = isError;
+
+                if (isError || isWarning) {
+                    item.temErro = true;
+                    item.idErro = lint.id;
+                    item.mensagemErro = lint.message.replace(/[<>]/g, "");
+                    if (errorLocation) {
+                        item.coluna = (errorLocation.column + 1);
+                        item.linha = (errorLocation.line + 1);
+                    }
+                }
+                itensRelatorioBootlint.push(item);
+            },
+            summaryReportFn: function (file, errorCount, warningCount) {
+                if (errorCount > 0 || warningCount > 0) {
+                    if (errorCount > 0) {
+                        gutil.log(gutil.colors.red("Por favor, corrija  " + errorCount + " erros") + " no arquivo: " + file.path);
+                    }
+                    if (warningCount > 0) {
+                        gutil.log(gutil.colors.yellow("Por favor, corrija  " + warningCount + " warnings") + " no arquivo: " + file.path)
+                    }
+                } else {
+                    gutil.log(gutil.colors.green("Nenhum problema encontrado no arquivo " + file.path + "\n"));
+                }
+                console.log();
+            }
+        }));
+});
+
+grunt.task("default", ["test", "bootlint"]);
+```
+
 ## Exemplos
+
+### Unitários
+
+```javascript
+describe("poc SPA - Módulo Principal", function() {
+    
+    beforeEach(angular.mock.module('ui.router'));
+
+    var pocSPA = module("pocSPA");
+    
+    it("deve ter o módulo de pocSPA definido", function(){
+       expect(pocSPA).toBeDefined(); 
+    });
+});
+```
+
+### Integração
+
+```javascript
+describe("poc SPA - Módulo Ajuste Lista", function () {
+	
+	beforeEach(function () {
+        angular.module("arq-spa.navegacao", []);
+    });
+
+    // Criar mocks dos providers da arquitetura
+    beforeEach(module(function ($provide) {
+        $provide.provider("navigator", function () {
+            this.addNavigator = jasmine.createSpy("addNavigator");
+            this.createNavigator = function () {
+                return {
+                    adicionarEstado: function () { return this; },
+                    definirEstadoInicial: function () { return this; }
+                }
+            };
+            this.$get = function () {
+                return {
+                    navegar: jasmine.createSpy("navegar"),
+                    iniciarFluxo: jasmine.createSpy("iniciarFluxo"),
+                    encadeamento: function() { return {}; },
+                    voltar: jasmine.createSpy("voltar"),
+                };
+            };
+        });
+		$provide.service("context", function () {
+            this.getValueContext = jasmine.createSpy("getValueContext");
+            this.getValueContext = function() { return "123132"; };
+            this.setValueContext = jasmine.createSpy("setValueContext");
+        });
+		$provide.service("memory", function () {
+            this.obter = function() { return {}; };
+        });
+    }));
+
+    // Mock do provider window
+    beforeEach(module(function ($provide) {
+        $provide.service("$window", function() { 
+            return { ga: function() {} }; 
+        });
+    }));
+
+    // Módulo do serviceExport
+	beforeEach(module(function ($provide) {
+		$provide.service("serviceExport", function () {
+            this.relatorio_ajustes_data = function() { return { save: function() {} } };
+			this.exportCSVNew = function() { return null; };
+        });
+    }));
+
+    // Carrega o módulo no contexto
+	beforeEach(module("ajustes"));
+	beforeEach(module("comunicacao"));
+
+    // Pega o controller
+    var $controller;
+    var executeService;
+    beforeEach(inject(function(_$controller_, _executeService_){
+        $controller = _$controller_;
+        executeService = _executeService_;
+    }));
+
+    // Executa os testes
+    it("fluxo padrão", function () {
+        var ctrl = $controller("ctrlAjustes", { executeService: executeService });
+        ctrl.visualizarMais();
+        ctrl.exportarPDF();
+        ctrl.exportarCSVClick();
+        ctrl.goBack();
+    });
+});
+```
 
 ## Boas práticas
 
@@ -69,6 +332,30 @@ A cobertura medida em linhas de código pode oferecer uma visão errônea da abr
 
 Hoje já temos ferramentas capazes de cruzar a cobertura medida em termos de linhas exercitadas pelos testes com os caminhos possíveis de execução dentro de um método. Por outro lado, testar todos esses caminhos pode representar esforço excessivo em relação aos benefícios obtidos.
 
+#### Não coloque a carroça na frente dos bois
+
+Sim, é isso mesmo que você leu. Não tente avançar o ciclo dos testes, só porque você já sabe como implementar do início ao fim. É importante que você se mantenha no ciclo (Red, Green, Refactor), isso vai fazer com que através da prática e disciplina, você se acostume e acabe ganhando agilidade e melhor visão do processo de desenvolvimento.
+
+#### Trate código de teste como código de produção
+
+O código de teste precisa ser legível, separado em etapas bem definidas e possuir um bom report. Isso vai permitir termos nossa documentação, além de facilitar com que outros desenvolvedores entendam o sistema a partir dali. De nada adianta criar um conjunto de testes se eu não souber qual problema aconteceu se algum teste quebrar.
+
+#### Evite acoplamento
+
+Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, auxiliando na busca de erros. Isso também auxilia até mesmo o seu design de código, garantindo algo modularizado e de bem mais fácil manutenção.
+
+#### Um teste de cada vez
+
+Esse é o padrão do TDD, mas não custa reafirmar, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão coisas pela metade e nem o risco de acabar esquecendo algo no meio do caminho.
+
+#### Não teste o desnecessário
+
+Por exemplo, se você estiver usando um framework, você não precisa testar se o método dele está funcionando, isso já foi amplamente testado no framework e o que você estará fazendo, nada mais é que repetindo testes.
+
+#### Responsabilidade Única
+
+Isso serve para o seu código e para o seu teste também, se você precisa escrever muito para fazer um teste, significa que alguma coisa está errada. Sempre faça testes pequenos, em geral, um teste para um método ou mais testes para um mesmo método, nunca o contrário. Um teste jamais poderá testar mais de um método.
+
 ### Testes unitários
 
 Os testes de unidade são apenas parte de um processo bem mais amplo de controle efetivo de qualidade de software.
@@ -77,6 +364,30 @@ Nem todas as classes de uma aplicação podem ser testadas de modo isolado, seja
 
 É importante perceber que usar objetos mock em todas as camadas de uma aplicação, de modo a ter testes de unidade para todas as classes e métodos de uma aplicação, não elimina a necessidade de se ter também os outros tipos de testes.
 
+Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de responder as seguintes perguntas:
+
+*O que eu estou testando?*
+
+*O que o método deveria fazer?*
+
+*Qual o seu atual retorno?*
+
+*O que eu espero que retorne?*
+
+* “Os nomes dos testes devem descrever o 'o que' e o 'porquê' a partir da perspectiva do usuário” – a ideia é que o desenvolvedor deveria ser capaz de ler o nome do teste e entender qual o comportamento esperado imediatamente.
+
+* “Os testes são códigos também, trate-os com amor” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. “Eu detesto, destesto testes longos e complexos. Se você tem um teste com 30 linhas de configuração (setup), por favor, coloque-a em um método de criação. Um teste longo é irritante e confunde o desenvolvedor. Se eu não tenho métodos longos no código em produção, por que eu deixaria que eles existam nos códigos de nossos testes?”
+
+* “Não se atenha em um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
+
+* Uma assertiva (assert) por teste (sempre que possível). 
+
+* Se houver qualquer condicional dentro de um teste, mova os blocos do "if" e do "else" para métodos individuais. 
+
+* No caso de os métodos em teste também tiverem blocos if else, então o método deve ser refatorado.
+
+* O nome do método deve ser um tipo de teste. Por exemplo, TesteFazerReserva() é diferente de TesteNaoFazerReserva().
+
 ### Testes de integração
 
 Os testes serão influenciados por nomes de classes, protocolos de rede e outros detalhes de implementação. Mas ainda irão exigir a presença de várias classes; por exemplo um objeto de negócios e vários objetos persistentes. Também poderão ser necessários recursos externos ao código da aplicação, como um servidor de banco de dados.
@@ -84,6 +395,8 @@ Os testes serão influenciados por nomes de classes, protocolos de rede e outros
 A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foi definido.
 
 Na verdade, mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução, por exemplo o servidor de aplicações, o banco de dados e um diretório LDAP. Isso além do tempo gasto em tarefas como o deployment de pacotes e a carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks especializados em testes de sistema ajudam o desenvolvedor.
+
+Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer sujeira que ele tenha deixado no caminho. A sujeira pode ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do OS, entre outros.
 
 ### Testes de regressão
 
