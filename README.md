@@ -334,7 +334,7 @@ Hoje já temos ferramentas capazes de cruzar a cobertura medida em termos de lin
 
 #### Não coloque a carroça na frente dos bois
 
-Sim, é isso mesmo que você leu. Não tente avançar o ciclo dos testes, só porque você já sabe como implementar do início ao fim. É importante que você se mantenha no ciclo (Red, Green, Refactor), isso vai fazer com que através da prática e disciplina, você se acostume e acabe ganhando agilidade e melhor visão do processo de desenvolvimento.
+Não tente avançar o ciclo dos testes. É importante que você se mantenha no ciclo (Red, Green, Refactor), isso vai fazer com que através da prática e disciplina, você se acostume e acabe ganhando agilidade e melhor visão do processo de desenvolvimento.
 
 #### Trate código de teste como código de produção
 
@@ -346,11 +346,11 @@ Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, au
 
 #### Um teste de cada vez
 
-Esse é o padrão do TDD, mas não custa reafirmar, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão coisas pela metade e nem o risco de acabar esquecendo algo no meio do caminho.
+Esse é o padrão do TDD, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão coisas pela metade e nem o risco de acabar esquecendo algo no meio do caminho.
 
 #### Não teste o desnecessário
 
-Por exemplo, se você estiver usando um framework, você não precisa testar se o método dele está funcionando, isso já foi amplamente testado no framework e o que você estará fazendo, nada mais é que repetindo testes.
+Se você estiver usando um framework, você não precisa testar se o método dele está funcionando, isso já foi amplamente testado no framework e o que você estará fazendo, nada mais é que repetindo testes.
 
 #### Responsabilidade Única
 
@@ -376,7 +376,7 @@ Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de respo
 
 * “Os nomes dos testes devem descrever o 'o que' e o 'porquê' a partir da perspectiva do usuário” – a ideia é que o desenvolvedor deveria ser capaz de ler o nome do teste e entender qual o comportamento esperado imediatamente.
 
-* “Os testes são códigos também, trate-os com amor” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. “Eu detesto, destesto testes longos e complexos. Se você tem um teste com 30 linhas de configuração (setup), por favor, coloque-a em um método de criação. Um teste longo é irritante e confunde o desenvolvedor. Se eu não tenho métodos longos no código em produção, por que eu deixaria que eles existam nos códigos de nossos testes?”
+* “Os testes são códigos também” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. “Eu detesto, destesto testes longos e complexos. Se você tem um teste com 30 linhas de configuração (setup), por favor, coloque-a em um método de criação. Um teste longo é irritante e confunde o desenvolvedor. Se eu não tenho métodos longos no código em produção, por que eu deixaria que eles existam nos códigos de nossos testes?”
 
 * “Não se atenha em um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
 
@@ -394,15 +394,15 @@ Os testes serão influenciados por nomes de classes, protocolos de rede e outros
 
 A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foi definido.
 
-Na verdade, mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução, por exemplo o servidor de aplicações, o banco de dados e um diretório LDAP. Isso além do tempo gasto em tarefas como o deployment de pacotes e a carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks especializados em testes de sistema ajudam o desenvolvedor.
+Mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução, por exemplo o servidor de aplicações, o banco de dados e um diretório LDAP. Isso além do tempo gasto em tarefas como o deployment de pacotes e a carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks especializados em testes de sistema ajudam o desenvolvedor.
 
 Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer sujeira que ele tenha deixado no caminho. A sujeira pode ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do OS, entre outros.
 
 ### Testes de regressão
 
-Quando qualquer sistema é exposto ao usuário final, sabemos que é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de QA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
+Quando qualquer sistema é exposto ao usuário final, é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de QA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
 
-Além disso, se estes testes forem incorporados à bateria de testes da aplicação, e forem re-executados a cada release evita-se que o bug apareça novamente. Os “bugs recorrentes”, ou regressões, são um dos problemas mais comuns com sistemas que já sofreram vários releases ou que sofreram várias mudanças em sua equipe de desenvolvimento.
+Se estes testes forem incorporados à bateria de testes da aplicação, e forem re-executados a cada release evita-se que o bug apareça novamente. Os “bugs recorrentes”, ou regressões, são um dos problemas mais comuns com sistemas que já sofreram vários releases ou que sofreram várias mudanças em sua equipe de desenvolvimento.
 
 ### Testes de desempenho
 
