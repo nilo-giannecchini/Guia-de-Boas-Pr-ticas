@@ -1,6 +1,6 @@
 # Guia de Boas Práticas
 
-Um guia de boas práticas que possa reduzir as dificuldades de implementação, adaptação e manutenção de ambientes de integração contínua utilizando Node e GruntJS
+Este documento é um guia de boas práticas que tem por objetivo reduzir as dificuldades de implementação, adaptação e manutenção de ambientes de integração contínua (IC) utilizando NodeJS e GruntJS
 
 ## Ferramentas utilizadas
 
@@ -12,10 +12,12 @@ Um guia de boas práticas que possa reduzir as dificuldades de implementação, 
 
 ### Ferramentas
 
-Recomendamos a instalação do Visual Code para IDE de codificação por ser open source, com vários plugins que ajudam no desenvolvimento e por ter uma boa integração com as linguagens web utilizadas (HTML, CSS, JavaScript). Suporta tambem outras linguagens como c++, java, python e .net.
+Recomendamos a instalação do Visual Code para IDE como editor de codificação por ser open source, com vários plugins que ajudam no desenvolvimento e por ter uma boa integração com as linguagens web utilizadas (HTML, CSS, JavaScript). Suporta tambem outras linguagens como C++, Java, Python e .net. A Figura 1 apresenta a interface inicial do Visual Code.
 ![Visual Code](/img/VisualCode.png)
 
-Após a instalação do Git, podemos ver sua versão na linha de comando
+Figura 1: Interface Inicial do Visual Code
+
+Outra ferramenta a ser instalada no ambiente é o Git que fará o controle de versão dos artefatos produzidos. Após a instalação do Git, podemos ver sua versão na linha de comando como mostra a Figura 2.
 
 ```shell
     git version
@@ -23,7 +25,9 @@ Após a instalação do Git, podemos ver sua versão na linha de comando
 
 ![Versão do Git](/img/VersaoGit.png)
 
-Com a instalação do NodeJs, instalamos a plataforma `node` e o gerenciador de pacotes `npm`.
+Figura 2: Interface go Git apresentando a versão corrente
+
+Com a instalação do NodeJs, instala-se simultaneamente a plataforma `node` e o gerenciador de pacotes `npm`. A Figura 3 apresenta a versão do `node` enquanto que a versão do `npm` é apresentada na Figura 4. 
 
 ```shell
     node -v
@@ -31,15 +35,19 @@ Com a instalação do NodeJs, instalamos a plataforma `node` e o gerenciador de 
 
 ![Versão do Node](/img/NodeVersion.png)
 
+Figura 3: Versão do `node` instalada no ambiente de IC
+
 ```shell
     npm -v
 ```
 
 ![Versão do Npm](/img/NpmVersion.png)
 
+Figura 4: Versão do `npm` instalada no ambiente de IC
+
 ### Pacotes
 
-Inicialmente, os pacotes que devemos instalar globalmente são `grunt`, `grunt-cli`, `karma-cli`.
+Inicialmente, os pacotes que devemos instalar globalmente são `grunt`, `grunt-cli`, `karma-cli`. A linha de comando a seguir, também apresentada na Figura 5, permite a instalação desses pacotes.
 
 ```shell
     npm install -g grunt grunt-cli karma-cli
@@ -47,13 +55,17 @@ Inicialmente, os pacotes que devemos instalar globalmente são `grunt`, `grunt-c
 
 ![Setup Inicial](/img/InitialSetup.png)
 
-Após a instalação, podemos executar o comando para verificar se o grunt-cli foi instalado corretamente. O warning ocorre pois o comando não encontrou o arquivo gruntfile para executar as tarefas.
+Figura 5: Interface mostrando a instalação dos pacotes necessários para o processo de IC
+
+Após a instalação, podemos executar o comando para verificar se o grunt-cli foi instalado corretamente. Um alerta (warning) ocorre quando o comando não encontrou o arquivo gruntfile para executar as tarefas, conforme mostra a Figura 6.
 
 ```shell
     grunt -v
 ```
 
 ![Versão do Grunt](/img/GruntCli.png)
+
+Figura 6: Interface apresentada na verificação do grunt-cli 
 
 ## Configurações
 
