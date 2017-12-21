@@ -71,6 +71,8 @@ Figura 6: Interface apresentada na verificação do grunt-cli
 
 ### Karma
 
+O Karma é uma ferramenta que permite a execução do código-fonte (ou seja, JavaScript) contra navegadores reais através da interface de linha de comando (CLI). Como as implementações de DOM (Document Object Model) variam em todos os navegadores, a idéia é usar os navegadores reais para ampliar a correção. O trecho de código apresentado na Figura 7 sugere uma configuração do Karma para um ambiente de IC.
+
 ```javascript
 // Karma configuration
 module.exports = function(config) {
@@ -159,7 +161,11 @@ module.exports = function(config) {
 }
 ```
 
+Figura 7: Configuração do Karma para o ambiente de IC
+
 ### GruntJS
+
+O Grunt é uma aplicação de linha de comando que tem como objetivo automatizar tarefas, principalmente tarefas em aplicações JavaScript. Para que o Grunt atue, escreve-se as tarefas em JavaScript e roda-se no Node.JS. A Figura 8 apresenta um trecho de código para a execução e análise de resultados.
 
 ```javascript
 var grunt = require('grunt');
@@ -240,8 +246,12 @@ grunt.task("bootlint", function () {
 
 grunt.task("default", ["test", "bootlint"]);
 ```
+Figura 8: Exemplo de uso do GruntJS
 
 ## Exemplos
+
+Esta parte do manual traz exemplos dos tipos de testes unitário (Figura 9) e de integração (Figura 10). 
+
 
 ### Unitários
 
@@ -257,6 +267,8 @@ describe("poc SPA - Módulo Principal", function() {
     });
 });
 ```
+
+Figura 9: Exemplo de Teste Unitário
 
 ### Integração
 
@@ -334,13 +346,13 @@ describe("poc SPA - Módulo Ajuste Lista", function () {
 });
 ```
 
+Figura 10: Exemplo de Teste de Integração
+
 ## Boas práticas
 
 Os testes automatizados constituem um item importante de controle de qualidade de software e oferecem também uma maneira confiável de se acompanhar o progresso de uma equipe de desenvolvimento em relação aos requisitos do projeto.
 
-Para avaliar a qualidade de testes sobre o código é necessário olhar o código internamente, e testar a implementação específica. Foram utilizados ferramentas de cobertura para avaliar a qualidade dos testes. Executar a bateria de testes e verificar se existe alguma linha de código que não foi exercitada pelos testes. Não apenas os testes de unidade deveriam ser avaliados em relação à cobertura, mas também os testes de sistema e especialmente os testes funcionais. Se a execução dos testes passa por todo o código, podemos confiar que tudo o que foi previsto pelo sistema foi testado.
-
-A cobertura medida em linhas de código pode oferecer uma visão errônea da abrangência dos testes. Uma mesma linha pode participar de vários caminhos de execução diferentes, e cada caminho traz diferentes configurações de objetos em memória.
+Para avaliar a qualidade de testes sobre o código é necessário estimar uma cobertura sobre a parte do código que foi submetida aos testes, isto é, a cada execução de uma bateria de testes, verificar se existe alguma linha de código que não foi exercitada pelos testes. Não apenas os testes de unidade deveriam ser avaliados em relação à cobertura, mas também os testes de sistema e especialmente os testes funcionais. De uma maneira simplificada, se a execução dos testes passa por todo o código, podemos confiar que tudo o que foi previsto pelo sistema foi testado. Porém, a cobertura medida em linhas de código pode oferecer uma visão errônea da abrangência dos testes. Uma mesma linha pode participar de vários caminhos de execução diferentes, e cada caminho traz diferentes configurações de objetos em memória.
 
 Hoje já temos ferramentas capazes de cruzar a cobertura medida em termos de linhas exercitadas pelos testes com os caminhos possíveis de execução dentro de um método. Por outro lado, testar todos esses caminhos pode representar esforço excessivo em relação aos benefícios obtidos.
 
@@ -350,15 +362,15 @@ Não tente avançar o ciclo dos testes. É importante que você se mantenha no c
 
 #### Trate código de teste como código de produção
 
-O código de teste precisa ser legível, separado em etapas bem definidas e possuir um bom report. Isso vai permitir termos nossa documentação, além de facilitar com que outros desenvolvedores entendam o sistema a partir dali. De nada adianta criar um conjunto de testes se eu não souber qual problema aconteceu se algum teste quebrar.
+O código de teste precisa ser legível, separado em etapas bem definidas e possuir um bom report. Isso vai permitir termos nossa documentação, além de facilitar com que outros desenvolvedores entendam o sistema a partir dali. De nada adianta criar um conjunto de testes se eu não souber qual problema aconteceu se algum teste não resultar em sucesso.
 
 #### Evite acoplamento
 
-Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, auxiliando na busca de erros. Isso também auxilia até mesmo o seu design de código, garantindo algo modularizado e de bem mais fácil manutenção.
+Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, auxiliando na busca de erros. Isso também auxilia até mesmo o seu design de código, garantindo algo modularizado e de mais fácil manutenção.
 
 #### Um teste de cada vez
 
-Esse é o padrão do TDD, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão coisas pela metade e nem o risco de acabar esquecendo algo no meio do caminho.
+Esse é o padrão do TDD, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão tarefas inacabadas e nem o risco de omissão de etapas importantes.
 
 #### Não teste o desnecessário
 
@@ -366,17 +378,17 @@ Se você estiver usando um framework, você não precisa testar se o método del
 
 #### Responsabilidade Única
 
-Isso serve para o seu código e para o seu teste também, se você precisa escrever muito para fazer um teste, significa que alguma coisa está errada. Sempre faça testes pequenos, em geral, um teste para um método ou mais testes para um mesmo método, nunca o contrário. Um teste jamais poderá testar mais de um método.
+Isso serve para o seu código e para o seu teste também. Se você precisa escrever muito para fazer um teste, significa que alguma coisa está errada. Sempre faça testes pequenos. Em geral, faz-se um teste para um método ou mais testes para um mesmo método, nunca o contrário. Um teste jamais poderá testar mais de um método.
 
 ### Testes unitários
 
 Os testes de unidade são apenas parte de um processo bem mais amplo de controle efetivo de qualidade de software.
 
-Nem todas as classes de uma aplicação podem ser testadas de modo isolado, seja porque elas necessitam de outras classes da própria aplicação, ou porque precisam de acesso a recursos externos, como bancos de dados relacionais. Testar uma classe juntamente com seus pré-requisitos consiste em um teste de integração. Então, ou não será possível criar testes de unidade para algumas classes da aplicação, ou então será necessário fornecer “simulações” destas dependências na forma de objetos mock.
+Nem todas as classes de uma aplicação podem ser testadas de modo isolado, seja porque elas necessitam de outras classes da própria aplicação, ou porque precisam de acesso a recursos externos como, por exemplo, bancos de dados relacionais. Testar uma classe juntamente com seus pré-requisitos consiste em um teste de integração. Então, ou não será possível criar testes de unidade para algumas classes da aplicação, ou então será necessário fornecer “simulações” destas dependências na forma de objetos mock.
 
 É importante perceber que usar objetos mock em todas as camadas de uma aplicação, de modo a ter testes de unidade para todas as classes e métodos de uma aplicação, não elimina a necessidade de se ter também os outros tipos de testes.
 
-Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de responder as seguintes perguntas:
+Para seguir um padrão do seu teste unitário, ele deve ser capaz de responder as seguintes perguntas:
 
 *O que eu estou testando?*
 
@@ -388,31 +400,33 @@ Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de respo
 
 * “Os nomes dos testes devem descrever o 'o que' e o 'porquê' a partir da perspectiva do usuário” – a ideia é que o desenvolvedor deveria ser capaz de ler o nome do teste e entender qual o comportamento esperado imediatamente.
 
-* “Os testes são códigos também” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. “Eu detesto, destesto testes longos e complexos. Se você tem um teste com 30 linhas de configuração (setup), por favor, coloque-a em um método de criação. Um teste longo é irritante e confunde o desenvolvedor. Se eu não tenho métodos longos no código em produção, por que eu deixaria que eles existam nos códigos de nossos testes?”
+* “Os testes são códigos também” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. Se um teste tem 30 linhas de configuração (setup), coloque-o em um método de criação. Um teste longo confunde o desenvolvedor. 
 
-* “Não se atenha em um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
+* “Não se atenha a um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
 
 * Uma assertiva (assert) por teste (sempre que possível). 
 
 * Se houver qualquer condicional dentro de um teste, mova os blocos do "if" e do "else" para métodos individuais. 
 
-* No caso de os métodos em teste também tiverem blocos if else, então o método deve ser refatorado.
+* No caso em que os métodos em teste também tenham blocos if else, então o método deve ser refatorado.
 
 * O nome do método deve ser um tipo de teste. Por exemplo, TesteFazerReserva() é diferente de TesteNaoFazerReserva().
 
 ### Testes de integração
 
-Os testes serão influenciados por nomes de classes, protocolos de rede e outros detalhes de implementação. Mas ainda irão exigir a presença de várias classes; por exemplo um objeto de negócios e vários objetos persistentes. Também poderão ser necessários recursos externos ao código da aplicação, como um servidor de banco de dados.
+Os testes de integração serão influenciados por nomes de classes, protocolos de rede e outros detalhes de implementação, mas ainda irão exigir a presença de várias classes. Por exemplo, um objeto de negócios e vários objetos persistentes poderão ser necessários para um único teste. Também poderão ser necessários recursos externos ao código da aplicação como, por exemplo, um servidor de banco de dados. Também para esse tipo de teste, em muitos casos, será necessário fornecer “simulações” das dependências na forma de objetos mock.
 
-A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foi definido.
+### Testes de sistemas
 
-Mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução, por exemplo o servidor de aplicações, o banco de dados e um diretório LDAP. Isso além do tempo gasto em tarefas como o deployment de pacotes e a carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks especializados em testes de sistema ajudam o desenvolvedor.
+A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foram definidos.
 
-Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer sujeira que ele tenha deixado no caminho. A sujeira pode ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do OS, entre outros.
+Mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução como, por exemplo, o servidor de aplicações, o banco de dados e um diretório LDAP (Lightweight Directory Access Protocol). Além disso, há de se considerar o tempo gasto em tarefas como o deployment de pacotes e a criação da carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks, especializados em testes de sistema, ajudam o desenvolvedor.
+
+Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer mudança que tenha sido feita. As mudanças podem ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do SO, entre outros.
 
 ### Testes de regressão
 
-Quando qualquer sistema é exposto ao usuário final, é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de QA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
+Quando qualquer sistema é exposto ao usuário final, é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de SQA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
 
 Se estes testes forem incorporados à bateria de testes da aplicação, e forem re-executados a cada release evita-se que o bug apareça novamente. Os “bugs recorrentes”, ou regressões, são um dos problemas mais comuns com sistemas que já sofreram vários releases ou que sofreram várias mudanças em sua equipe de desenvolvimento.
 
@@ -422,23 +436,23 @@ Qualquer tipo de recurso do sistema (hardware, software, banda de rede, etc.) qu
 
 Os gargalos podem ocorrer em todos os níveis de arquitetura de um sistema, tais como a camada de rede, servidor de aplicações, servidor de dados e servidor web. Entretanto, conforme apontam muitos estudos e experiências, quem causa a maior parte dos gargalos de desempenho é o código do aplicativo.
 
-#### Throughput
+	#### Throughput
 
-Basicamente, throughput ou vazão é a capacidade da aplicação ou uma parte da mesma de executar uma operação de forma repetida, em um determinado período de tempo. Por exemplo, o throughput de uma página é a quantidade de vezes por segundo que conseguimos receber uma resposta dessa página.
+Basicamente, throughput ou vazão é a capacidade da aplicação ou uma parte da mesma executar uma operação de forma repetida, em um determinado período de tempo. Por exemplo, o throughput de uma página é a quantidade de vezes por segundo que conseguimos receber uma resposta dessa página.
 
 Esses números são muito importantes porque definem a capacidade da aplicação, medida em acessos por segundo, páginas por segundo ou megabits por segundo. A maior parte de todos os problemas de desempenho é causada por limitações no throughput.
 
-#### Tempos de resposta
+	#### Tempos de resposta
 
 É o tempo que a aplicação demora para concluir um processo de transação. No caso de uma página, é o tempo que a aplicação demora para dar o retorno apropriado para o usuário final. É importante medir o tempo de resposta porque a aplicação pode ser rejeitada pelo usuário se não responder dentro de um tempo esperado, mesmo tendo disponibilidade imediata – levando o mesmo a abandonar a página ou até mesmo acessar a página de concorrentes.
 
 O tempo de resposta envolve o período necessário para retornar à solicitação realizada no servidor web. Cada solicitação deve ser processada e enviada para o servidor de aplicação, que também pode realizar um pedido ao servidor de banco de dados. Tudo isso voltará pelo mesmo caminho até o usuário. O tempo necessário para o retorno também está relacionado com a latência da rede entre os servidores e o usuário.
 
-#### Antes de tudo, avalie a infraestrutura da rede da aplicação
+#### Antes de tudo, avalie a infraestrutura de rede da aplicação
 
-Antes de executar cada teste de performance, faça uma avaliação minuciosa na infraestrutura da rede que suporta a aplicação. Se o sistema não suportar a carga de usuários dimensionada na aplicação, ele apresentará gargalos. Essa avaliação é de nível básico e validará a largura da banda, taxa de acessos, conexões etc.
+Antes de executar cada teste de desempenho, faça uma avaliação minuciosa na infraestrutura de rede que suporta a aplicação. Se o sistema não suportar a carga de usuários dimensionada na aplicação, ele apresentará gargalos. Essa avaliação é de nível básico e validará a largura da banda, taxa de acessos, conexões etc.
 
-Um teste simples otimiza tempo e recursos, pois evita que tarefas demoradas e complexas sejam executadas em uma infraestrutura que futuramente não atenderá à carga esperada. Ao detectar qualquer sinal de gargalo, antes de executar os testes de performance propriamente ditos, a estrutura é readequada para suportar a carga estimada nos cenários de teste.
+Um teste simples otimiza tempo e recursos, pois evita que tarefas demoradas e complexas sejam executadas em uma infraestrutura que futuramente não atenderá à carga esperada. Ao detectar qualquer sinal de gargalo, antes de executar os testes de desempenho propriamente ditos, a estrutura é readequada para suportar a carga estimada nos cenários de teste.
 
 #### Evite iniciar com cenários complexos
 
@@ -450,23 +464,23 @@ Antes mesmo da aplicação estar totalmente pronta para implantação, o ideal �
 
 Think time (ou tempo de raciocínio) é o tempo definido em uma transação no mesmo ritmo de um usuário real. Os cenários tentam prever aquilo que os usuários normalmente fazem (navegar, pesquisar, login, comprar, etc.), e o tempo que eles levam para ler, pensar, digitar e clicar. Cada etapa de cada transação deve ter seu think time estabelecido. Dependendo do contexto da transação, o valor do think time irá variar e, por isso, não é aconselhável estabelecer um padrão.
 
-Um exemplo: o acesso à página de login pode demorar de 15 a 20 segundos para um usuário completar. Você pode informar à ferramenta de teste para usar um tempo randômico entre 15 e 20 segundos, ao invés de fixar um valor único. De qualquer forma, é sempre melhor definir um valor de think time do que não definir nenhum, caso contrário os cenários executados causarão um enorme impacto nos servidores, uma vez que transações sem think time ou com valores irreais acarretam sobrecarga nos mesmos. Deve-se sempre lembrar de modelar os cenários com tempos reais previstos de think time
+Um exemplo: o acesso à página de login pode demorar de 15 a 20 segundos para um usuário completar. Você pode informar à ferramenta de teste para usar um tempo randômico entre 15 e 20 segundos, ao invés de fixar um valor único. De qualquer forma, é sempre melhor definir um valor de think time do que não definir nenhum, caso contrário os cenários executados causarão um enorme impacto nos servidores, uma vez que transações sem think time ou com valores irreais acarretam sobrecarga nos mesmos. Deve-se sempre lembrar de modelar os cenários com tempos reais previstos de think time.
 
 #### Ambiente de testes
 
-Além de ser exclusivo para realização dos testes de performance, a infraestrutura da mesma deve ser a mais próxima possível da de produção. Todas as configurações, aplicativos, serviços, massa de dados e outros itens que fazem parte do ambiente de produção devem ser reproduzidos.
+Além de ser exclusivo para realização dos testes de desemepnho, a infraestrutura da mesma deve ser a mais próxima possível da estrutura de produção. Todas as configurações, aplicativos, serviços, massa de dados e outros itens que fazem parte do ambiente de produção devem ser reproduzidos.
 
-Evite testar a aplicação em sistemas de produção, uma vez que o mesmo é acessado por outros usuários e é impossível garantir o que está sendo executado nesse ambiente. Sendo assim, será difícil determinar se as falhas na aplicação são ocasionadas pelos testes ou por outros usuários no sistema.
+Evite testar a aplicação em sistemas de produção, uma vez que o mesmo é acessado por outros usuários e é impossível garantir o que está sendo executado nesse ambiente. Sendo assim, será difícil determinar se as falhas na aplicação são ocasionadas pelos testes ou por outros usuários no sistema. Além disso, uma possível falha grave em decorrência dos testes pode impactar negativamente usuários reais do ambiente de produção.
 
 Uma aplicação simples com apenas um servidor é perfeitamente possível de ser replicada, ao contrário de uma infraestrutura com recursos de grande porte que demandam altos custos de implantação. Nessas situações, mantenha a mesma infraestrutura em proporções menores, mas sempre mantendo a escalabilidade da mesma.
 
-Considere incorporar procedimentos que não são evidentes, pois a degradação do desempenho pode ocorrer em tarefas periódicas que não são identificadas facilmente como backup de base de dados, geração de relatórios demorados, etc.
+Considere incorporar procedimentos que não são evidentes, pois a degradação do desempenho pode ocorrer em tarefas periódicas que não são identificadas facilmente como backup de base de dados, geração de relatórios demorados, entre outros.
 
-#### Gargalos de performance podem ocultar outros gargalos
+#### Gargalos de desempenho podem ocultar outros gargalos
 
 Sistemas que utilizam muitas APIs devem ter atenção redobrada ao identificar gargalos (ler BOX 2). Uma API que não funciona como desejado pode esconder outros possíveis gargalos de outras APIs.
 
-Por exemplo, uma determinada aplicação possui três APIs. Ao final dos testes de performance, a análise dos resultados detectou que a API problemática gerou um tempo de resposta muito alto para uma certa página. Essa API não está respondendo como esperado, mas não há como garantir que as outras APIs estejam funcionando como deveriam. Se uma API demora para responder, o número de requests encaminhados para as APIs posteriores é reduzido, ocultando possíveis problemas nas mesmas.
+Por exemplo, uma determinada aplicação possui três APIs. Ao final dos testes de desempenho, a análise dos resultados detectou que a API problemática gerou um tempo de resposta muito alto para uma certa página. Essa API não está respondendo como esperado, mas não há como garantir que as outras APIs estejam funcionando como deveriam. Se uma API demora para responder, o número de requests encaminhados para as APIs posteriores é reduzido, ocultando possíveis problemas.
 
 #### O equipamento gerador de carga também deve ser testado
 
@@ -476,7 +490,7 @@ Uma estrutura geradora de carga pode esconder problemas e limitações que geram
 
 #### Monitore os recursos do ambiente submetido à carga
 
-Durante a execução dos testes de performance, é importante utilizar alguma ferramenta que monitore os diferentes recursos dos servidores como forma de acompanhar o seu comportamento conforme o crescimento e estabilidade da carga. Esse tipo de monitoramento se torna fundamental para verificar quando o hardware está se tornando um gargalo.
+Durante a execução dos testes de desempenho, é importante utilizar alguma ferramenta que monitore os diferentes recursos dos servidores como forma de acompanhar o seu comportamento conforme o crescimento e estabilidade da carga. Esse tipo de monitoramento se torna fundamental para verificar quando o hardware está se tornando um gargalo.
 
 Caso o testador possua conhecimentos avançados no sistema operacional do servidor, existem ferramentas nativas que monitoram os recursos, gravando os contadores selecionados conforme a necessidade de cada teste (ver seção Links).
 
@@ -490,17 +504,17 @@ Submeter o sistema à carga máxima de uma vez pode sobrecarregar a aplicação 
 
 Um ambiente de testes é composto pelo gerador de carga e também pela aplicação que será submetida aos testes. É extremamente importante que antes de cada ciclo de teste executado, todos os ambientes estejam iguais, pois qualquer alteração pode acarretar resultados não correspondentes à realidade da aplicação.
 
-Um exemplo: após o primeiro ciclo de testes, no servidor de dados, um dos bancos teve um acréscimo considerável de dados nas tabelas devido a um dos cenários que alimentava um formulário de dados. Se esse ambiente não for regenerado nos próximos ciclos de testes, o mesmo banco terá mais dados carregados e seu desempenho pode ficar abaixo do esperado, ocasionando consultas mais lentas. Nessa situação, é importante restaurar o banco de dados a um estado conhecido antes de cada ciclo de teste.
+Um exemplo: após o primeiro ciclo de testes, no servidor de dados, um dos bancos de dados teve um acréscimo considerável de dados nas tabelas devido a um dos cenários que alimentava um formulário. Se esse ambiente não for regenerado nos próximos ciclos de testes, o mesmo banco de dados terá mais dados carregados e seu desempenho pode ficar abaixo do esperado, ocasionando consultas mais lentas. Nessa situação, é importante restaurar o banco de dados a um estado conhecido antes de cada ciclo de teste.
 
 Se esses ambientes forem criados em uma solução virtualizada, fica muito mais simples manter esse controle, pois essa tecnologia permite criar “checkpoints” que salvam um instantâneo do servidor, podendo este ser restaurado a qualquer momento revertendo a máquina virtual a um ponto específico do tempo.
 
 #### Teste a aplicação considerando o uso após determinado período
 
-Muitos testes de performance não consideram a utilização de toda a estrutura após determinado período. Uma pergunta que sempre deve ser feita é: “Como meu sistema vai se comportar daqui a um ano, quando quase 70.000 usuários forem registrados nos bancos?”.
+Muitos testes de desempenho não consideram a utilização de toda a estrutura após determinado período. Uma pergunta que sempre deve ser feita é: “Como meu sistema vai se comportar daqui a um ano, quando quase 70.000 usuários forem registrados nos bancos de dados?”.
 
-As ferramentas de teste possuem relativa facilidade para preenchimento do banco com grande quantidade de dados. Como é utilizada a mesma interface dos usuários reais, existe a garantia de que os dados passaram pelas regras de limpeza e verificação da aplicação. Os próprios cenários podem ser utilizados para realizar esse preenchimento.
+As ferramentas de teste possuem relativa facilidade para preenchimento do banco de dados com grande quantidade de dados. Como é utilizada a mesma interface dos usuários reais, existe a garantia de que os dados passaram pelas regras de limpeza e verificação da aplicação. Os próprios cenários podem ser utilizados para realizar esse preenchimento.
 
-Os mesmos testes de performance executados anteriormente serão rodados com o intuito de alimentar os bancos, simulando a utilização prevista daqui a um determinado período. Assim é possível comparar os testes executados com poucos dados e os testes executados com muitos dados já inseridos no banco.
+Os mesmos testes de desempenho executados anteriormente serão rodados com o intuito de alimentar os bancos de dados, simulando a utilização prevista daqui a um determinado período. Assim é possível comparar os testes executados com poucos dados e os testes executados com muitos dados já inseridos no banco.
 
 #### Se for possível, replique o ambiente do seu cliente
 
@@ -514,35 +528,33 @@ Utilizando um ambiente de testes dedicado, é importante isolar a sua rede do re
 
 #### Participe ativamente desde o início do projeto
 
-É natural que o teste de performance seja executado somente ao final do projeto (caso a metodologia de desenvolvimento não envolva processos ágeis). Na maior parte das vezes, só é possível executar os testes no final do desenvolvimento da aplicação ou quando a mesma já está em implantação pelo cliente. De qualquer forma, é importante que o testador participe também do projeto durante o desenvolvimento do produto. Devemos lembrar que os cenários propostos devem combinar e simular um cenário real com a maior fidelidade possível. Participando do ciclo de vida do produto, o testador terá mais condições de criar os cenários de teste com entendimento adequado dos padrões comuns de uso.
+É natural que o teste de desempenho seja executado ao final do projeto (caso a metodologia de desenvolvimento não envolva processos ágeis). Porém, é importante que o testador participe também do projeto durante o desenvolvimento do produto. Participando do ciclo de vida do produto, o testador terá mais condições de criar os cenários de teste com entendimento adequado dos padrões comuns de uso.
 
-Objetivos mal definidos para os testes de performance são ocasionados por entendimento inadequado das expectativas dos testes, e muitas vezes vão acarretar na criação demorada de cenários complexos de forma desnecessária. Isto resulta em dados de performance inadequados para uma análise do real desempenho da aplicação.
+Objetivos mal definidos para os testes de desempenho são ocasionados por entendimento inadequado das expectativas dos testes, e muitas vezes vão acarretar na criação demorada de cenários complexos de forma desnecessária. Isto resulta em dados de desempenho inadequados para uma análise do real da aplicação.
 
-#### Testes de performance devem procurar problemas de performance
+#### Testes de desempenho devem procurar problemas de desempenho
 
-Em alguns casos, as equipes procuram os testes de performance para confirmar seus requisitos ao invés de tentar identificar problemas. Essa visão pode até mesmo influenciar na criação dos cenários de teste. Se o objetivo é pura e simplesmente executar testes buscando confirmar os requisitos de desempenho da aplicação, a equipe dificilmente pensará em um cenário hipotético fora dos padrões para incluir nos testes. Um cenário não previsto pode deixar potenciais problemas ocultos.
+Em alguns casos, as equipes procuram os testes de desempenho para confirmar seus requisitos ao invés de tentar identificar problemas de desempenho. Essa visão pode até mesmo influenciar na criação dos cenários de teste. Se o objetivo é pura e simplesmente executar testes buscando confirmar os requisitos de desempenho da aplicação, a equipe dificilmente pensará em um cenário hipotético fora dos padrões para incluir nos testes. Um cenário não previsto pode deixar potenciais problemas ocultos.
 
 #### Teste muitas vezes
 
-Quando finalizar um determinado ciclo de teste de performance, utilize-o como um ponto de comparação e execute-o novamente com as mesmas definições mais de uma vez com o objetivo de procurar possíveis regressões de desempenho. Uma mudança simples não prevista pode causar algum problema inesperado, acarretando perdas de desempenho que não seriam detectadas em apenas um ciclo de avaliação. Por exemplo: foram definidos ciclos de teste de 100, 250, 300 e 500 usuários simultâneos. Nessa situação, não será executado apenas um ciclo de teste para cada carga de usuários, e sim cinco ciclos de teste para cada carga de usuários comparando os resultados entre si. Caso seja encontrada uma discrepância ao comparar os resultados, o problema deverá ser investigado em detalhes.
+Quando finalizar um determinado ciclo de teste de performance, utilize-o como um ponto de comparação e execute-o novamente com as mesmas definições mais de uma vez, com o objetivo de procurar possíveis regressões de desempenho. Uma mudança simples não prevista pode causar algum problema inesperado, acarretando perdas de desempenho que não seriam detectadas em apenas um ciclo de avaliação. Por exemplo: foram definidos ciclos de teste de 100, 250, 300 e 500 usuários simultâneos. Nessa situação, não será executado apenas um ciclo de teste para cada carga de usuários, e sim cinco ciclos de teste para cada carga de usuários comparando os resultados entre si. Caso seja encontrada uma discrepância ao comparar os resultados, o problema deverá ser investigado em detalhes.
 
 #### Para o tempo de resposta, considere a proporção de usuários que atingem a meta
 
-O tempo de resposta é o que define a satisfação de um usuário do sistema. Para esse valor, não consideramos o tempo médio que cada transação demora a responder. Deve-se buscar nos registros do teste quantos por cento dessas transações estão abaixo de um tempo de resposta estabelecido.
+O tempo de resposta é o que define a satisfação de um usuário do sistema. Para esse valor, não consideramos o tempo médio que cada transação demora a responder. Deve-se buscar nos registros do teste qual a percentagem dessas transações estão abaixo de um tempo de resposta estabelecido.
 
-Supondo que para determinada aplicação, o tempo de resposta estabelecido como aceitável é igual ou inferior a sete segundos. Ao executar os testes, se o tempo médio de resposta foi de seis segundos, o resultado atingindo poderia ser considerado dentro do esperado. Entretanto, há um problema nessa análise. Ao analisar em detalhes os resultados, observou-se que o tempo de resposta dessa transação foi variável, estando tão baixo e tão alto que o tempo médio fez parecer que estava baixo.
+Supondo que para determinada aplicação, o tempo de resposta estabelecido como aceitável é igual ou inferior a sete segundos. Ao executar os testes, por exemplo, se o tempo médio de resposta foi de seis segundos, o resultado atingindo poderia ser considerado dentro do esperado. Entretanto, há um problema nessa análise. Ao analisar em detalhes os resultados, observou-se que o tempo de resposta dessa transação foi variável, estando tão baixo e tão alto que o tempo médio fez parecer adequado.
 
-Portanto, o ideal é sempre determinar uma quantidade de usuários que serão atendidos por este tempo de resposta, por exemplo: 85% das transações devem responder no tempo máximo de sete segundos.
-
-Nessa situação, analisando novamente os resultados, conclui-se que 78% das transações responderam no máximo em sete segundos, e as demais atingiram tempo de resposta superior a sete segundos. Considerando essa forma de análise, o sistema seria reprovado nos testes de desempenho.
+Portanto, o ideal é sempre determinar uma quantidade de usuários que serão atendidos por este tempo de resposta. Por exemplo: 85% das transações devem responder no tempo máximo de sete segundos e investigar a percentagem de transações que responderam em um tempo máximo de 7s. Por exemplo, se 78% das transações responderam no máximo em sete segundos, e as demais atingiram tempo de resposta superior a sete segundos, os testes foram reprovados, pois não foi atingido a marca de 85% das transações que deveriam responder nesse tempo limite. 
 
 #### Faça a sondagem com um único usuário
 
 Enquanto o aplicativo está sob carga, acesse-o e procure explorá-lo para ajudá-lo a compreender a experiência do usuário (como tempos de resposta). Por exemplo, acesse a aplicação pelo browser e navegue pelos cenários propostos, executando ações não previstas.
 
-Muitos problemas no comportamento do sistema só são detectados ao interagir diretamente com a aplicação quando ela está sendo submetida aos testes de performance. Uma lentidão em uma rotina que não estava no plano de testes pode esconder possíveis gargalos da aplicação.
+Muitos problemas no comportamento do sistema só são detectados ao interagir diretamente com a aplicação quando ela está sendo submetida aos testes de dsemepenho. Uma lentidão em uma rotina que não estava no plano de testes pode esconder possíveis gargalos da aplicação.
 
-Percebe-se que o sucesso do teste de performance de uma aplicação não depende apenas das ferramentas utilizadas. Desde o planejamento, desenvolvimento de teste, execução e análise, são necessários testadores competentes com conhecimento do sistema, da rede e das aplicações de testes, além de uma boa experiência com servidores e, principalmente, habilidade para descobrir problemas ocultos e isolados.
+Percebe-se que o sucesso do teste de desempenho de uma aplicação não depende apenas das ferramentas utilizadas. Desde o planejamento, desenvolvimento de teste, execução e análise, são necessários testadores competentes com conhecimento do sistema, da rede e das aplicações de testes, além de uma boa experiência com servidores e, principalmente, habilidade para descobrir problemas ocultos e isolados.
 
 ## Más práticas
 
@@ -584,13 +596,13 @@ Aqui não temos exatamente um erro de um teste em especial, mas um erro na conce
 
 #### Testar várias situações diferentes em um único teste
 
-Um único método de negócios pode gerar múltiplas situações de teste, de acordo com apenas os valores dos seus argumentos, e um único teste exercita todas essas variações.
+Um único método de negócios pode gerar múltiplas situações de teste, de acordo com os valores dos seus argumentos, e um único teste exercita todas essas variações.
 
 Este anti-pattern ocorre quando o programador acredita que deve haver um teste para cada método (afinal é assim que a maioria dos IDEs geram automaticamente classes de teste a partir de classes da aplicação).
 
 Um teste construído desta forma pode até servir para indicar se o método como um todo funcionou, mas uma falha no teste, no meio de um relatório que pode conter milhares de outros testes, diz pouco sobre exatamente qual situação falhou.
 
-Outra variação deste anti-pattern é na verdade um erro de projeto da aplicação. Se existe uma seqüência de métodos que deve ser chamada na ordem correta para gerar certo resultado, esta seqüência deveria estar encapsulada em um único método de negócios, e é este método que seria testado. Mas ter a seqüência correta dentro de um método de teste não garante que a mesma seqüência foi implementada corretamente dentro da aplicação.
+Outra variação deste anti-pattern é na verdade um erro de projeto da aplicação. Se existe uma seqüência de métodos que deve ser chamada na ordem correta para gerar certo resultado, esta seqüência deveria estar encapsulada em um único método de negócios, e é este método que seria testado. Mas, ter a seqüência correta dentro de um método de teste não garante que a mesma seqüência foi implementada corretamente dentro da aplicação.
 
 #### Confundir Testes de Unidade com Testes de Sistema
 
