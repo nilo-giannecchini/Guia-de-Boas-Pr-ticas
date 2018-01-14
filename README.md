@@ -362,27 +362,15 @@ Não tente pular o ciclo dos testes por conhecer o método. É importante manter
 
 #### O código de teste é o mesmo que o código produtivo
 
-<<<<<<< HEAD
 O código de teste deve ser bem estruturado e legível para facilitar o entendimento por todos os desenvolvedores. Ficando separado em etapas bem definidas e possuir um bom report, vai permitir termos nossa documentação dos testes.
-=======
-O código de teste precisa ser legível, separado em etapas bem definidas e possuir um bom report. Isso vai permitir termos nossa documentação, além de facilitar com que outros desenvolvedores entendam o sistema a partir dali. De nada adianta criar um conjunto de testes se eu não souber qual problema aconteceu se algum teste não resultar em sucesso.
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 #### Não acople os testes
 
-<<<<<<< HEAD
 Se os testes foram fortemente acoplados, ocorre a quebra em cascata, chamado de efeito dominó dificultando a busca de erros. Com os testes desacoplados auxilia o design de código, garantindo a modularidade e manutenção.
-=======
-Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, auxiliando na busca de erros. Isso também auxilia até mesmo o seu design de código, garantindo algo modularizado e de mais fácil manutenção.
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 #### Somente um teste por vez
 
-<<<<<<< HEAD
 No padrão TDD, escrevemos um teste de cada vez. Somente iniciamos o próximo teste quando o primeiro estiver validado. Assim, evitamos testes escritos pela metade e mitigamos a possibilidade de esquecer algo inacabado no desenvolvimento.
-=======
-Esse é o padrão do TDD, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão tarefas inacabadas e nem o risco de omissão de etapas importantes.
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 #### Teste somente o necessário
 
@@ -390,11 +378,7 @@ Se o código utilizar bibliotecas de mercado, não é necessário testar os mét
 
 #### Um teste único por função
 
-<<<<<<< HEAD
 Os testes desenvolvidos devem ser pequenos, funcionais e específicos para um mtodo. Testes desenvolvidos para vários métodos é um erro que dificulta a manutenção e a leitura dos testes.
-=======
-Isso serve para o seu código e para o seu teste também. Se você precisa escrever muito para fazer um teste, significa que alguma coisa está errada. Sempre faça testes pequenos. Em geral, faz-se um teste para um método ou mais testes para um mesmo método, nunca o contrário. Um teste jamais poderá testar mais de um método.
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 ### Testes unitários
 
@@ -404,11 +388,7 @@ Nem todas as classes de uma aplicação podem ser testadas de modo isolado, seja
 
 É importante perceber que usar objetos mock em todas as camadas de uma aplicação, de modo a ter testes de unidade para todas as classes e métodos de uma aplicação, não elimina a necessidade de se ter também os outros tipos de testes.
 
-<<<<<<< HEAD
 O teste unitário deve ser escrito observando as perguntas abaixo:
-=======
-Para seguir um padrão do seu teste unitário, ele deve ser capaz de responder as seguintes perguntas:
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 *O que eu estou testando?*
 
@@ -420,23 +400,9 @@ Para seguir um padrão do seu teste unitário, ele deve ser capaz de responder a
 
 * "Os nomes dos testes devem conter o 'o que' e o 'porquê' na perspectiva do usuário" – o desenvolvedor deve ser capaz de ler o nome do teste e identificar para qual funcionalidade ele foi escrito.
 
-<<<<<<< HEAD
 * Se houver uma condicional no teste, os blocos do "se" e do "senão" devem ser métodos diferentes. 
 
 * Se no teste também tiverem blocos de condição, então o teste deve ser refatorado.
-=======
-* “Os testes são códigos também” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. Se um teste tem 30 linhas de configuração (setup), coloque-o em um método de criação. Um teste longo confunde o desenvolvedor. 
-
-* “Não se atenha a um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
-
-* Uma assertiva (assert) por teste (sempre que possível). 
-
-* Se houver qualquer condicional dentro de um teste, mova os blocos do "if" e do "else" para métodos individuais. 
-
-* No caso em que os métodos em teste também tenham blocos if else, então o método deve ser refatorado.
-
-* O nome do método deve ser um tipo de teste. Por exemplo, TesteFazerReserva() é diferente de TesteNaoFazerReserva().
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 
 ### Testes de integração
 
@@ -446,13 +412,6 @@ Os testes de integração serão influenciados por nomes de classes, protocolos 
 
 A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foram definidos.
 
-<<<<<<< HEAD
-=======
-Mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução como, por exemplo, o servidor de aplicações, o banco de dados e um diretório LDAP (Lightweight Directory Access Protocol). Além disso, há de se considerar o tempo gasto em tarefas como o deployment de pacotes e a criação da carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks, especializados em testes de sistema, ajudam o desenvolvedor.
-
-Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer mudança que tenha sido feita. As mudanças podem ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do SO, entre outros.
-
->>>>>>> 6d685e5955a8cb8201c748ca993b854590b67ada
 ### Testes de regressão
 
 Quando qualquer sistema é exposto ao usuário final, é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de SQA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
