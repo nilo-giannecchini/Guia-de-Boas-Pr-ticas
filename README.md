@@ -332,29 +332,29 @@ A cobertura medida em linhas de código pode oferecer uma visão errônea da abr
 
 Hoje já temos ferramentas capazes de cruzar a cobertura medida em termos de linhas exercitadas pelos testes com os caminhos possíveis de execução dentro de um método. Por outro lado, testar todos esses caminhos pode representar esforço excessivo em relação aos benefícios obtidos.
 
-#### Não coloque a carroça na frente dos bois
+#### Não se precipite
 
-Não tente avançar o ciclo dos testes. É importante que você se mantenha no ciclo (Red, Green, Refactor), isso vai fazer com que através da prática e disciplina, você se acostume e acabe ganhando agilidade e melhor visão do processo de desenvolvimento.
+Não tente pular o ciclo dos testes por conhecer o método. É importante manter o ciclo Red, Green, Refactor, uma vez que vai fazer com que se acostume através da prática e disciplina, e com o tempo ganha-se agilidade e melhor visão do processo de desenvolvimento.
 
-#### Trate código de teste como código de produção
+#### O código de teste é o mesmo que o código produtivo
 
-O código de teste precisa ser legível, separado em etapas bem definidas e possuir um bom report. Isso vai permitir termos nossa documentação, além de facilitar com que outros desenvolvedores entendam o sistema a partir dali. De nada adianta criar um conjunto de testes se eu não souber qual problema aconteceu se algum teste quebrar.
+O código de teste deve ser bem estruturado e legível para facilitar o entendimento por todos os desenvolvedores. Ficando separado em etapas bem definidas e possuir um bom report, vai permitir termos nossa documentação dos testes.
 
-#### Evite acoplamento
+#### Não acople os testes
 
-Quanto mais desacoplados seus testes, melhor. Isso evita a quebra em cascata, auxiliando na busca de erros. Isso também auxilia até mesmo o seu design de código, garantindo algo modularizado e de bem mais fácil manutenção.
+Se os testes foram fortemente acoplados, ocorre a quebra em cascata, chamado de efeito dominó dificultando a busca de erros. Com os testes desacoplados auxilia o design de código, garantindo a modularidade e manutenção.
 
-#### Um teste de cada vez
+#### Somente um teste por vez
 
-Esse é o padrão do TDD, só escreva um próximo teste, se o primeiro passar. Isso garante que não ficarão coisas pela metade e nem o risco de acabar esquecendo algo no meio do caminho.
+No padrão TDD, escrevemos um teste de cada vez. Somente iniciamos o próximo teste quando o primeiro estiver validado. Assim, evitamos testes escritos pela metade e mitigamos a possibilidade de esquecer algo inacabado no desenvolvimento.
 
-#### Não teste o desnecessário
+#### Teste somente o necessário
 
-Se você estiver usando um framework, você não precisa testar se o método dele está funcionando, isso já foi amplamente testado no framework e o que você estará fazendo, nada mais é que repetindo testes.
+Se o código utilizar bibliotecas de mercado, não é necessário testar os métodos expostos por elas uma vez que a empresa ou a comunidade já testaram amplamente essas bibliotecas, evitando criação de testes desnecessários.
 
-#### Responsabilidade Única
+#### Um teste único por função
 
-Isso serve para o seu código e para o seu teste também, se você precisa escrever muito para fazer um teste, significa que alguma coisa está errada. Sempre faça testes pequenos, em geral, um teste para um método ou mais testes para um mesmo método, nunca o contrário. Um teste jamais poderá testar mais de um método.
+Os testes desenvolvidos devem ser pequenos, funcionais e específicos para um mtodo. Testes desenvolvidos para vários métodos é um erro que dificulta a manutenção e a leitura dos testes.
 
 ### Testes unitários
 
@@ -364,7 +364,7 @@ Nem todas as classes de uma aplicação podem ser testadas de modo isolado, seja
 
 É importante perceber que usar objetos mock em todas as camadas de uma aplicação, de modo a ter testes de unidade para todas as classes e métodos de uma aplicação, não elimina a necessidade de se ter também os outros tipos de testes.
 
-Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de responder as seguintes perguntas:
+O teste unitário deve ser escrito observando as perguntas abaixo:
 
 *O que eu estou testando?*
 
@@ -374,19 +374,11 @@ Para seguir um padrão legal do seu teste unitário, ele deve ser capaz de respo
 
 *O que eu espero que retorne?*
 
-* “Os nomes dos testes devem descrever o 'o que' e o 'porquê' a partir da perspectiva do usuário” – a ideia é que o desenvolvedor deveria ser capaz de ler o nome do teste e entender qual o comportamento esperado imediatamente.
+* "Os nomes dos testes devem conter o 'o que' e o 'porquê' na perspectiva do usuário" – o desenvolvedor deve ser capaz de ler o nome do teste e identificar para qual funcionalidade ele foi escrito.
 
-* “Os testes são códigos também” – código-fonte em produção não é o único local em que você deve fazer suas refatorações. Testes legíveis são mais fáceis de se manter e mais fáceis de serem compreendidos por outras pessoas. “Eu detesto, destesto testes longos e complexos. Se você tem um teste com 30 linhas de configuração (setup), por favor, coloque-a em um método de criação. Um teste longo é irritante e confunde o desenvolvedor. Se eu não tenho métodos longos no código em produção, por que eu deixaria que eles existam nos códigos de nossos testes?”
+* Se houver uma condicional no teste, os blocos do "se" e do "senão" devem ser métodos diferentes. 
 
-* “Não se atenha em um padrão ou estilo organizacional para fixtures” – Às vezes, mesmo tendo uma padronização para suas classes, pode ser que não tenha como aplicá-la a seus fixtures.
-
-* Uma assertiva (assert) por teste (sempre que possível). 
-
-* Se houver qualquer condicional dentro de um teste, mova os blocos do "if" e do "else" para métodos individuais. 
-
-* No caso de os métodos em teste também tiverem blocos if else, então o método deve ser refatorado.
-
-* O nome do método deve ser um tipo de teste. Por exemplo, TesteFazerReserva() é diferente de TesteNaoFazerReserva().
+* Se no teste também tiverem blocos de condição, então o teste deve ser refatorado.
 
 ### Testes de integração
 
@@ -395,8 +387,6 @@ Os testes serão influenciados por nomes de classes, protocolos de rede e outros
 A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foi definido.
 
 Mesmo a execução de testes de sistema sem integração contínua pode ser complicada, pela necessidade de se configurar todo o ambiente de execução, por exemplo o servidor de aplicações, o banco de dados e um diretório LDAP. Isso além do tempo gasto em tarefas como o deployment de pacotes e a carga de massas de dados de testes no banco de dados. É nessas tarefas que os frameworks especializados em testes de sistema ajudam o desenvolvedor.
-
-Para que um teste rode de forma isolada, ele deve iniciar sempre em um estado limpo e válido, e com seu término, ele deve sempre desfazer qualquer sujeira que ele tenha deixado no caminho. A sujeira pode ser desde uma variável de ambiente ou da JVM, um arquivo ou diretório no sistema de arquivos, recursos abertos do OS, entre outros.
 
 ### Testes de regressão
 
