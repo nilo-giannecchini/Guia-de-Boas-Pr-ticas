@@ -466,49 +466,31 @@ Considere incorporar procedimentos que não são evidentes, pois a degradação 
 
 #### Gargalos de desempenho podem ocultar outros gargalos
 
-Sistemas que utilizam muitas APIs devem ter atenção redobrada ao identificar gargalos (ler BOX 2). Uma API que não funciona como desejado pode esconder outros possíveis gargalos de outras APIs.
-
-Por exemplo, uma determinada aplicação possui três APIs. Ao final dos testes de desempenho, a análise dos resultados detectou que a API problemática gerou um tempo de resposta muito alto para uma certa página. Essa API não está respondendo como esperado, mas não há como garantir que as outras APIs estejam funcionando como deveriam. Se uma API demora para responder, o número de requests encaminhados para as APIs posteriores é reduzido, ocultando possíveis problemas.
+Sistemas que utilizam muitas APIs devem ter atenção redobrada ao identificar gargalos. Uma API que não funciona como desejado pode esconder outros possíveis gargalos de outras APIs.
 
 #### O equipamento gerador de carga também deve ser testado
 
 Em um ambiente de testes, além da infraestrutura dos servidores utilizados pela aplicação (servidor web, de dados, etc.), existe também a estrutura geradora de carga. São equipamentos configurados para que uma determinada ferramenta de testes execute os cenários de testes, submetendo toda a estrutura utilizada pela aplicação à carga determinada.
 
-Uma estrutura geradora de carga pode esconder problemas e limitações que geram ruídos nos testes, ocasionando falsos resultados (como um número reduzido de throughput). Cada equipamento desse ambiente deve ser avaliado e os resultados individuais comparados em busca de inconsistências. O objetivo é identificar se um desses equipamentos tem consumo diferenciado (CPU, memória, banda, etc.).
-
 #### Monitore os recursos do ambiente submetido à carga
 
 Durante a execução dos testes de desempenho, é importante utilizar alguma ferramenta que monitore os diferentes recursos dos servidores como forma de acompanhar o seu comportamento conforme o crescimento e estabilidade da carga. Esse tipo de monitoramento se torna fundamental para verificar quando o hardware está se tornando um gargalo.
-
-Caso o testador possua conhecimentos avançados no sistema operacional do servidor, existem ferramentas nativas que monitoram os recursos, gravando os contadores selecionados conforme a necessidade de cada teste (ver seção Links).
 
 #### Nunca inicie a carga de uma única vez
 
 Em cada ciclo de testes, a carga de usuários deve subir de forma gradativa durante um período longo de tempo, seguido de um tempo estável de pelo menos uma hora, para então descer gradativamente. Devem ser consideradas apenas as métricas do período estável, tanto no comportamento dos servidores quanto da aplicação. Ou seja, o que deve ser avaliado é apenas o tempo de carga estável de uma hora.
 
-Submeter o sistema à carga máxima de uma vez pode sobrecarregar a aplicação Web, e os resultados apresentados durante o período de testes podem não corresponder à realidade.
-
 #### O poder da regeneração do ambiente de testes
 
 Um ambiente de testes é composto pelo gerador de carga e também pela aplicação que será submetida aos testes. É extremamente importante que antes de cada ciclo de teste executado, todos os ambientes estejam iguais, pois qualquer alteração pode acarretar resultados não correspondentes à realidade da aplicação.
 
-Um exemplo: após o primeiro ciclo de testes, no servidor de dados, um dos bancos de dados teve um acréscimo considerável de dados nas tabelas devido a um dos cenários que alimentava um formulário. Se esse ambiente não for regenerado nos próximos ciclos de testes, o mesmo banco de dados terá mais dados carregados e seu desempenho pode ficar abaixo do esperado, ocasionando consultas mais lentas. Nessa situação, é importante restaurar o banco de dados a um estado conhecido antes de cada ciclo de teste.
-
-Se esses ambientes forem criados em uma solução virtualizada, fica muito mais simples manter esse controle, pois essa tecnologia permite criar “checkpoints” que salvam um instantâneo do servidor, podendo este ser restaurado a qualquer momento revertendo a máquina virtual a um ponto específico do tempo.
-
 #### Teste a aplicação considerando o uso após determinado período
 
-Muitos testes de desempenho não consideram a utilização de toda a estrutura após determinado período. Uma pergunta que sempre deve ser feita é: “Como meu sistema vai se comportar daqui a um ano, quando quase 70.000 usuários forem registrados nos bancos de dados?”.
-
-As ferramentas de teste possuem relativa facilidade para preenchimento do banco de dados com grande quantidade de dados. Como é utilizada a mesma interface dos usuários reais, existe a garantia de que os dados passaram pelas regras de limpeza e verificação da aplicação. Os próprios cenários podem ser utilizados para realizar esse preenchimento.
-
-Os mesmos testes de desempenho executados anteriormente serão rodados com o intuito de alimentar os bancos de dados, simulando a utilização prevista daqui a um determinado período. Assim é possível comparar os testes executados com poucos dados e os testes executados com muitos dados já inseridos no banco.
+Muitos testes de desempenho não consideram a utilização de toda a estrutura após determinado período. Deve-se pensar como o sistema irá se comprotar no futuro, como por exemplo, daqui uns anos, quando possuir mais de 50 mil usuários no banco de dados.
 
 #### Se for possível, replique o ambiente do seu cliente
 
-Se a aplicação a ser testada é um produto que já funciona em seu cliente, não seria ideal realizar os testes de performance com dados reais? É sempre importante manter o ambiente de testes o mais próximo possível do real e isso será de grande valia se existir a possibilidade de oferecer o teste utilizando os dados reais do cliente.
-
-O importante nessa situação é sempre garantir que dados críticos do cliente serão protegidos ou removidos, com sua ciência e autorização prévia.
+É sempre importante manter o ambiente de testes o mais próximo possível do real e isso será de grande valia se existir a possibilidade de oferecer o teste utilizando os dados reais do cliente.
 
 #### Isole o ambiente de testes
 
@@ -516,33 +498,24 @@ Utilizando um ambiente de testes dedicado, é importante isolar a sua rede do re
 
 #### Participe ativamente desde o início do projeto
 
-É natural que o teste de desempenho seja executado ao final do projeto (caso a metodologia de desenvolvimento não envolva processos ágeis). Porém, é importante que o testador participe também do projeto durante o desenvolvimento do produto. Participando do ciclo de vida do produto, o testador terá mais condições de criar os cenários de teste com entendimento adequado dos padrões comuns de uso.
-
 Objetivos mal definidos para os testes de desempenho são ocasionados por entendimento inadequado das expectativas dos testes, e muitas vezes vão acarretar na criação demorada de cenários complexos de forma desnecessária. Isto resulta em dados de desempenho inadequados para uma análise do real da aplicação.
 
 #### Testes de desempenho devem procurar problemas de desempenho
 
-Em alguns casos, as equipes procuram os testes de desempenho para confirmar seus requisitos ao invés de tentar identificar problemas de desempenho. Essa visão pode até mesmo influenciar na criação dos cenários de teste. Se o objetivo é pura e simplesmente executar testes buscando confirmar os requisitos de desempenho da aplicação, a equipe dificilmente pensará em um cenário hipotético fora dos padrões para incluir nos testes. Um cenário não previsto pode deixar potenciais problemas ocultos.
+Se o objetivo é pura e simplesmente executar testes buscando confirmar os requisitos de desempenho da aplicação, a equipe dificilmente pensará em um cenário hipotético fora dos padrões para incluir nos testes. Um cenário não previsto pode deixar potenciais problemas ocultos.
 
 #### Teste muitas vezes
 
-Quando finalizar um determinado ciclo de teste de performance, utilize-o como um ponto de comparação e execute-o novamente com as mesmas definições mais de uma vez, com o objetivo de procurar possíveis regressões de desempenho. Uma mudança simples não prevista pode causar algum problema inesperado, acarretando perdas de desempenho que não seriam detectadas em apenas um ciclo de avaliação. Por exemplo: foram definidos ciclos de teste de 100, 250, 300 e 500 usuários simultâneos. Nessa situação, não será executado apenas um ciclo de teste para cada carga de usuários, e sim cinco ciclos de teste para cada carga de usuários comparando os resultados entre si. Caso seja encontrada uma discrepância ao comparar os resultados, o problema deverá ser investigado em detalhes.
+Uma mudança simples não prevista pode causar algum problema inesperado, acarretando perdas de desempenho que não seriam detectadas em apenas um ciclo de avaliação. Caso seja encontrada uma discrepância ao comparar os resultados, o problema deverá ser investigado em detalhes.
 
 #### Para o tempo de resposta, considere a proporção de usuários que atingem a meta
 
 O tempo de resposta é o que define a satisfação de um usuário do sistema. Para esse valor, não consideramos o tempo médio que cada transação demora a responder. Deve-se buscar nos registros do teste qual a percentagem dessas transações estão abaixo de um tempo de resposta estabelecido.
-
-Supondo que para determinada aplicação, o tempo de resposta estabelecido como aceitável é igual ou inferior a sete segundos. Ao executar os testes, por exemplo, se o tempo médio de resposta foi de seis segundos, o resultado atingindo poderia ser considerado dentro do esperado. Entretanto, há um problema nessa análise. Ao analisar em detalhes os resultados, observou-se que o tempo de resposta dessa transação foi variável, estando tão baixo e tão alto que o tempo médio fez parecer adequado.
-
-Portanto, o ideal é sempre determinar uma quantidade de usuários que serão atendidos por este tempo de resposta. Por exemplo: 85% das transações devem responder no tempo máximo de sete segundos e investigar a percentagem de transações que responderam em um tempo máximo de 7s. Por exemplo, se 78% das transações responderam no máximo em sete segundos, e as demais atingiram tempo de resposta superior a sete segundos, os testes foram reprovados, pois não foi atingido a marca de 85% das transações que deveriam responder nesse tempo limite. 
+O ideal é sempre determinar uma quantidade de usuários que serão atendidos por este tempo de resposta. 
 
 #### Faça a sondagem com um único usuário
 
-Enquanto o aplicativo está sob carga, acesse-o e procure explorá-lo para ajudá-lo a compreender a experiência do usuário (como tempos de resposta). Por exemplo, acesse a aplicação pelo browser e navegue pelos cenários propostos, executando ações não previstas.
-
 Muitos problemas no comportamento do sistema só são detectados ao interagir diretamente com a aplicação quando ela está sendo submetida aos testes de dsemepenho. Uma lentidão em uma rotina que não estava no plano de testes pode esconder possíveis gargalos da aplicação.
-
-Percebe-se que o sucesso do teste de desempenho de uma aplicação não depende apenas das ferramentas utilizadas. Desde o planejamento, desenvolvimento de teste, execução e análise, são necessários testadores competentes com conhecimento do sistema, da rede e das aplicações de testes, além de uma boa experiência com servidores e, principalmente, habilidade para descobrir problemas ocultos e isolados.
 
 ## Más práticas
 
@@ -550,37 +523,13 @@ Construir e programar testes unitários ou outros tipos de testes pode não ser 
 
 #### Se não deu erro, é por que funcionou
 
-O teste chama algum método de negócios, que não retorna nada, e não verifica se os efeitos colaterais que seriam gerados pelo método foram efetivamente realizados.
+O teste chama um método de negócios, que não retorna nada, e não verifica se os efeitos colaterais que seriam gerados pelo método foram efetivamente realizados.
 
-Por exemplo, foi testado o envio de uma mensagem de e-mail, mas não se verificou se ela chegou à caixa postal correta. Ou então foram modificados registros no banco de dados, mas estes registros não foram lidos para confirmar que estão com os valores corretos ao fim da transação.
-
-Em suma, caímos nesse erro se considerarmos que o teste só “falha” se houver alguma exceção. Mas não ter ocorrido nenhum problema de rede, nem de sintaxe SQL, por exemplo, não significa que foi gerado o resultado correto.
-
-Note que em geral este tipo de problema ocorre em testes que não são verdadeiros testes de unidade, e sim testes de sistema, devido à dificuldade em se verificar os “efeitos colaterais”. Mas podem ocorrer variações deste anti-pattern até em cálculos simples; por exemplo o teste verifica apenas se o resultado é positivo, em vez de verificar o valor real esperado.
-
-#### Fazer rollback no final do teste
-
-O teste chama um ou mais métodos cujo efeito é modificar registros no banco de dados, mas para evitar o problema de se ter que “zerar” as tabelas envolvidas (para manter a repetibilidade do teste), é feito um rollback no final.
-
-Especialmente em aplicações transacionais, esta forma de teste não funciona, pois não considera a possibilidade do próprio commit falhar. Na maioria dos casos um banco relacional irá executar regras de integridade (constraints) e triggers imediatamente, de modo que uma falha no commit seria causada por falta de espaço em disco ou algum outro motivo fora do controle da lógica da aplicação. Mas em situações mais sofisticadas, como um banco replicado, ou com transações distribuídas, pode haver falha apenas no commit, e não nos comandos que inseriram ou modificaram registros.
-
-Além disso, caso sejam usados Entity Beans ou frameworks de persistência objeto-relacional, as atualizações reais sobre o banco de dados podem ser postergadas para o momento do commit, mascarando erros causados por lógica incorreta em métodos executados no início da transação.
-
-Não podemos deixar de considerar que o commit da transação deve ser feito nos momentos corretos. O commit é parte integral da lógica sendo testada. Por exemplo, se o commit estiver fora do método que representa todo o processo de negócio, a camada de apresentação da aplicação poderá até mesmo “esquecer” de fazer o commit.
+Caímos nesse erro de considerarmos que o teste só "falha" se houver alguma exceção. Mas não ter ocorrido nenhum problema de rede, nem de sintaxe SQL, por exemplo, não significa que foi gerado o resultado correto.
 
 #### O próprio método de testes calcula o resultado esperado
 
 Um dado método de negócios implementa um algoritmo com diversas variações. Em vez de criar vários testes, cada qual chamando o mesmo método, porém variando os parâmetros de entrada (e as respostas esperadas), cria-se um teste “genérico” que calcula as respostas esperadas e então chama o método de negócios apropriado.
-
-Além de representar uma duplicação desnecessária de lógica (implementando o algoritmo de cálculo duas vezes, uma no teste e outra no método de negócios), é possível que o programador cometa o mesmo erro nas duas vezes, ou pior, que haja cópia de código do método para o teste, ou vice-versa.
-
-Do jeito que foi apresentado, pode parecer uma situação trivial, fácil de se identificar. Mas o programador pode tomar “atalhos” para produzir rapidamente o teste. Por exemplo, quando o resultado de um método depende de uma tabela de consulta e o teste é codificado para usar a mesma tabela.
-
-#### Testar apenas o funcionamento correto
-
-O método nunca é chamado com argumentos inválidos, então não se sabe se ele irá gerar as exceções esperadas ou de alguma forma dar o feebdack correto para o usuário
-
-Aqui não temos exatamente um erro de um teste em especial, mas um erro na concepção de toda uma suíte de testes. É importante testar se cada método faz sua validação de argumentos e tratamento de erros da forma correta. Especialmente quando um método pode ser chamado usando-se argumentos derivados de fontes externas, como um formulário HTML, um banco de dados ou um arquivo em disco. As falhas de segurança mais comuns em aplicações web decorrem deste anti-pattern.
 
 #### Testar várias situações diferentes em um único teste
 
@@ -590,20 +539,10 @@ Este anti-pattern ocorre quando o programador acredita que deve haver um teste p
 
 Um teste construído desta forma pode até servir para indicar se o método como um todo funcionou, mas uma falha no teste, no meio de um relatório que pode conter milhares de outros testes, diz pouco sobre exatamente qual situação falhou.
 
-Outra variação deste anti-pattern é na verdade um erro de projeto da aplicação. Se existe uma seqüência de métodos que deve ser chamada na ordem correta para gerar certo resultado, esta seqüência deveria estar encapsulada em um único método de negócios, e é este método que seria testado. Mas, ter a seqüência correta dentro de um método de teste não garante que a mesma seqüência foi implementada corretamente dentro da aplicação.
-
 #### Confundir Testes de Unidade com Testes de Sistema
-
-Cria-se um teste de unidade onde o sucesso ou falha do teste depende de métodos e classes diferentes do alvo do teste.
 
 Um teste de unidade deve testar uma classe ou um método isoladamente, sem nenhuma dependência externa. A idéia é que uma falha no teste indique precisamente qual método ou classe o programador deve depurar e corrigir, ou completar. Mas, caso o teste dependa de outros métodos chamados em cascata, ou de recursos externos como bancos de dados, uma falha no teste pode significar simplesmente um erro de configuração do ambiente, ou uma falha no trabalho de outro desenvolvedor.
 
-Nem sempre será possível ou viável criar verdadeiros testes de unidade para todas as classes e métodos. Já os testes de sistema devem ser isolados para que, antes da sua execução (ou em caso de falhas), seja fácil verificar falhas de ambiente, ou acionar o desenvolvedor responsável pelo componente que causou a falha. Isso também ajuda a separar testes longos de testes rápidos, e a agendar freqüências de execução diferenciadas para cada um. Em projetos envolvendo uma equipe grande ou muitos casos de uso, pode se tornar inviável executar sempre todos os testes. Assim, será necessário ter agendas separadas para a execução de diferentes tipos de testes.
-
 #### Construir testes que não podem ser repetidos
 
-O funcionamento do teste depende do programador ajustar manualmente algum pré-requisito, como inserir dados de teste no banco de dados.
-
 Um teste automatizado deve funcionar sempre. Deve ser possível executá-lo diversas vezes, sem que o programador tenha que realizar tarefas de limpeza, como recarregar uma massa de testes no banco de dados. Falhar em observar estas diretivas leva a vários alarmes falsos, pois faz com que testes falhem quando o código testado está totalmente correto.
-
-Todo o ambiente de execução de um teste deve ser configurado pelo próprio teste (por exemplo, usando comandos SQL delete e insert executados via JDBC), ou pelo script que comanda a sua execução. Para facilitar esta tarefa, existem vários frameworks, alguns dos quais apresentados na seção sobre testes de sistema neste artigo (ex.: Cactus e DbUnit).
