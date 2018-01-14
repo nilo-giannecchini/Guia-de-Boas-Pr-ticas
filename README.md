@@ -348,7 +348,7 @@ describe("poc SPA - Módulo Ajuste Lista", function () {
 
 Figura 10: Exemplo de Teste de Integração
 
-## Boas práticas
+### Boas práticas
 
 Os testes automatizados constituem um item importante de controle de qualidade de software e oferecem também uma maneira confiável de se acompanhar o progresso de uma equipe de desenvolvimento em relação aos requisitos do projeto.
 
@@ -380,7 +380,7 @@ Se o código utilizar bibliotecas de mercado, não é necessário testar os mét
 
 Os testes desenvolvidos devem ser pequenos, funcionais e específicos para um mtodo. Testes desenvolvidos para vários métodos é um erro que dificulta a manutenção e a leitura dos testes.
 
-### Testes unitários
+#### Testes unitários
 
 Os testes de unidade são apenas parte de um processo bem mais amplo de controle efetivo de qualidade de software.
 
@@ -404,33 +404,33 @@ O teste unitário deve ser escrito observando as perguntas abaixo:
 
 * Se no teste também tiverem blocos de condição, então o teste deve ser refatorado.
 
-### Testes de integração
+#### Testes de integração
 
 Os testes de integração serão influenciados por nomes de classes, protocolos de rede e outros detalhes de implementação, mas ainda irão exigir a presença de várias classes. Por exemplo, um objeto de negócios e vários objetos persistentes poderão ser necessários para um único teste. Também poderão ser necessários recursos externos ao código da aplicação como, por exemplo, um servidor de banco de dados. Também para esse tipo de teste, em muitos casos, será necessário fornecer “simulações” das dependências na forma de objetos mock.
 
-### Testes de sistemas
+#### Testes de sistemas
 
 A execução de testes de sistema dentro de ambientes de integração contínua pode ser complexa, dependendo das tecnologias adotadas e da forma como a arquitetura e design das classes foram definidos.
 
-### Testes de regressão
+#### Testes de regressão
 
 Quando qualquer sistema é exposto ao usuário final, é inevitável a constatação da existência de erros na aplicação. Uma prática bastante efetiva de SQA é gerar testes que exercitam cada bug em particular. Estes testes são utilizados para ajudar o desenvolvedor a isolar a causa do erro, e permitem ao gerente de projeto verificar se o bug foi realmente eliminado.
 
 Se estes testes forem incorporados à bateria de testes da aplicação, e forem re-executados a cada release evita-se que o bug apareça novamente. Os “bugs recorrentes”, ou regressões, são um dos problemas mais comuns com sistemas que já sofreram vários releases ou que sofreram várias mudanças em sua equipe de desenvolvimento.
 
-### Testes de desempenho
+#### Testes de desempenho
 
 Qualquer tipo de recurso do sistema (hardware, software, banda de rede, etc.) que limite o fluxo dos dados ou a velocidade de processamento cria um gargalo. Nas aplicações web, eles afetam o desempenho e até mesmo a escalabilidade, limitando o throughput de dados e/ou o número de conexões suportadas pela aplicação.
 
 Os gargalos podem ocorrer em todos os níveis de arquitetura de um sistema, tais como a camada de rede, servidor de aplicações, servidor de dados e servidor web. Entretanto, conforme apontam muitos estudos e experiências, quem causa a maior parte dos gargalos de desempenho é o código do aplicativo.
 
-	#### Throughput
+#### Throughput
 
 Basicamente, throughput ou vazão é a capacidade da aplicação ou uma parte da mesma executar uma operação de forma repetida, em um determinado período de tempo. Por exemplo, o throughput de uma página é a quantidade de vezes por segundo que conseguimos receber uma resposta dessa página.
 
 Esses números são muito importantes porque definem a capacidade da aplicação, medida em acessos por segundo, páginas por segundo ou megabits por segundo. A maior parte de todos os problemas de desempenho é causada por limitações no throughput.
 
-	#### Tempos de resposta
+#### Tempos de resposta
 
 É o tempo que a aplicação demora para concluir um processo de transação. No caso de uma página, é o tempo que a aplicação demora para dar o retorno apropriado para o usuário final. É importante medir o tempo de resposta porque a aplicação pode ser rejeitada pelo usuário se não responder dentro de um tempo esperado, mesmo tendo disponibilidade imediata – levando o mesmo a abandonar a página ou até mesmo acessar a página de concorrentes.
 
@@ -456,7 +456,7 @@ Um exemplo: o acesso à página de login pode demorar de 15 a 20 segundos para u
 
 #### Ambiente de testes
 
-Além de ser exclusivo para realização dos testes de desemepnho, a infraestrutura da mesma deve ser a mais próxima possível da estrutura de produção. Todas as configurações, aplicativos, serviços, massa de dados e outros itens que fazem parte do ambiente de produção devem ser reproduzidos.
+Além de ser exclusivo para realização dos testes de desempenho, a infraestrutura da mesma deve ser a mais próxima possível da estrutura de produção. Todas as configurações, aplicativos, serviços, massa de dados e outros itens que fazem parte do ambiente de produção devem ser reproduzidos.
 
 Evite testar a aplicação em sistemas de produção, uma vez que o mesmo é acessado por outros usuários e é impossível garantir o que está sendo executado nesse ambiente. Sendo assim, será difícil determinar se as falhas na aplicação são ocasionadas pelos testes ou por outros usuários no sistema. Além disso, uma possível falha grave em decorrência dos testes pode impactar negativamente usuários reais do ambiente de produção.
 
