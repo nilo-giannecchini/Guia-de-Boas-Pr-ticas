@@ -6,20 +6,30 @@
     "author": "Nilo Giannecchini",
     "license": "ISC",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "precommit": "npm prune",
-        "prepush": "npm prune"
+        "mount": "npm install && bower install",
+        "test": "node node_modules/grunt/bin/grunt"
     },
-    "dependencies": {},
+    "dependencies": {
+        "express": "latest"
+    },
     "devDependencies": {
+        "eslint": "latest",
+        "eslint-plugin-angular": "latest",
+        "eslint-plugin-jasmine": "latest",
+        "eslint-plugin-scanjs-rules": "latest",
         "execSync": "latest",
         "grunt": "latest",
         "grunt-cli": "latest",
         "grunt-githooks": "latest",
         "grunt-karma": "latest",
+        "jasmine": "latest",
         "karma": "latest",
+        "karma-coverage": "latest",
         "karma-jasmine": "latest",
+        "karma-junit-reporter": "latest",
         "karma-phantomjs-launcher": "latest",
+        "karma-html-reporter": "latest",
+        "karma-jasmine-html-reporter": "latest",
         "jasmine-core": "latest",
         "load-grunt-tasks": "latest",
         "time-grunt": "latest"

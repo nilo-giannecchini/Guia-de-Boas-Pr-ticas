@@ -3,7 +3,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
+        basePath: './',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -11,23 +11,57 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'js/object.js',
-            'js/tests/*.js'
+            "app/bower_components/angular/angular.js",
+            "app/bower_components/angular-mocks/angular-mocks.js",
+            "app/bower_components/angular-route/angular-route.js",
+            "app/bower_components/angular-ui-router/release/angular-ui-router.js",
+            "app/js/*.js",
+            "app/js/**/**/*.js",
+            "test/unit/*.js",
+            "test/unit/**/*.js"
         ],
 
         // list of files to exclude
-        exclude: [
-        ],
+        exclude: [],
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            "app/js/**/**/*.js": ["coverage"]
         },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ["progress", "coverage", "junit"],
+
+        coverageReporter: {
+            dir: "reports/coverage/",
+            reporters: [{
+                    type: "html",
+                    subdir: "report-html"
+                },
+                {
+                    type: "cobertura",
+                    subdir: ".",
+                    file: "cobertura-coverage.xml"
+                }
+            ]
+        },
+
+        junitReporter: {
+            outputDir: "reports/unit-tests",
+            outputFile: "test-results.xml",
+            suite: "unit-tests",
+            useBrowserName: false
+        },
+
+        plugins: [
+            "karma-jasmine",
+            "karma-phantomjs-launcher",
+            "karma-coverage",
+            "karma-junit-reporter"
+        ],
 
         // web server port
         port: 9876,
@@ -48,6 +82,10 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: true
+        singleRun: true,
+
+        // Concurrency level
+        // how many browser should be started simultaneous
+        concurrency: Infinity
     });
 };

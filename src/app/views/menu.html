@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body>
+    <div ng-controller="HomeCtrl as ctrl">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">POC SPA</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ng-href="#!/home"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a ng-click="ctrl.navegar('estabelecimento', null)" ng-href="{{ctrl.state}}"><i class="fa fa-money"></i> Estabelecimentos</a></li>
+                    <li><a ng-click="ctrl.navegar('contato', null)" ng-href="{{ctrl.state}}"><i class="fa fa-address-book-o"></i> Contatos</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <div ui-view name="menuContent"></div>
+    </div>
+</body>
+
+</html>

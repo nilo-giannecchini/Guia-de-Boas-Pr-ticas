@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<!-- define angular app -->
+<html lang="pt" ng-app="pocSPA">
+
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>POC SPA</title>
+  <!-- SCROLLS -->
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
+</head>
+
+<!-- define angular controller -->
+
+<body>
+
+  <div>
+    <div ui-view></div>
+  </div>
+
+  <!-- SPELLS -->
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-route/angular-route.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/js/pocSPA.module.js"></script>
+  <script src="/js/Home/controller/home.controller.js"></script>
+  <script src="/js/Home/services/home.services.js"></script>
+  <script src="/js/Contato/controller/contato.controller.js"></script>
+  <script src="/js/Contato/services/contato.services.js"></script>
+  <script src="/js/Estabelecimento/controller/ec.controller.js"></script>
+  <script src="/js/Estabelecimento/services/ec.services.js"></script>
+  <script src="/js/Comum/services/services.js"></script>
+
+</body>
+
+</html>

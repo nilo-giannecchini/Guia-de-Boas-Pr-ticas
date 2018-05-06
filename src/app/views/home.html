@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body>
+	<div ng-controller="HomeCtrl as ctrl">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Contatos</h3>
+					<table class="table table-bordered table-striped ew-table">
+						<thead>
+							<tr>
+								<th style="width:3%;"></th>
+								<th style="width:30%;">Nome</th>
+								<th style="width:30%;">Sobrenome</th>
+								<th style="width:30%;">Email</th>
+								<th style="width:7%;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="contato in ctrl.ListaContatos">
+								<td align="center"><a ng-href="#" ng-click="ctrl.openPhone(contato)"><i class="fa fa-phone"></i></a></td>
+								<td class="tdCenter" ng-bind="contato.nome"></td>
+								<td class="tdCenter" ng-bind="contato.sobrenome"></td>
+								<td class="tdCenter" ng-bind="contato.email"></td>
+								<td align="center"><a ng-href="#" ng-click="ctrl.deleteContact(contato)"><i class="fa fa-times"></i></a>
+									<a ng-click="ctrl.navegar('contato', contato)" ng-href="{{ctrl.state}}"><i class="fa fa-pencil-square-o"></i></a></td>
+							</tr>
+							<tr>
+								<table class="table table-bordered table-striped ew-table" ng-show="ctrl.phone">
+									<thead>
+										<tr>
+											<th style="width:50%;">Descrição Telefone</th>
+											<th style="width:50%;">Número Telefone</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="telefone in ctrl.ListaTelefones">
+											<td class="tdCenter" ng-bind="telefone.descricao"></td>
+											<td class="tdCenter" ng-bind="telefone.numero"></td>
+										</tr>
+									</tbody>
+								</table>
+							</tr>
+						</tbody>
+					</table>
+					</br>
+					<h3>Estabelecimentos</h3>
+					<table class="table table-bordered table-striped ew-table">
+						<thead>
+							<tr>
+								<th style="width:5%;"></th>
+								<th style="width:44%;">Nome</th>
+								<th style="width:44%;">Categoria</th>
+								<th style="width:7%;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="estabelecimento in ctrl.ListaEstabelecimentos">
+								<td align="center"><a ng-href="#" ng-click="ctrl.openPhone2(estabelecimento)"><i class="fa fa-phone"></i></a>
+									<a ng-href="#" ng-click="ctrl.openAddress(estabelecimento)"><i class="fa fa-address-card"></i></a></td>
+								<td class="tdCenter" ng-bind="estabelecimento.nome"></td>
+								<td class="tdCenter" ng-bind="estabelecimento.categoria"></td>
+								<td align="center"><a ng-href="#" ng-click="ctrl.deleteEC(estabelecimento)"><i class="fa fa-times"></i></a>
+									<a ng-click="ctrl.navegar('estabelecimento', estabelecimento)" ng-href="{{ctrl.state}}"><i class="fa fa-pencil-square-o"></i></a></td>
+							</tr>
+							<tr>
+								<table class="table table-bordered table-striped ew-table" ng-show="ctrl.phone2">
+									<thead>
+										<tr>
+											<th style="width:50%;">Descrição Telefone</th>
+											<th style="width:50%;">Número Telefone</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="telefone in ctrl.ListaTelefonesEC">
+											<td class="tdCenter" ng-bind="telefone.descricao"></td>
+											<td class="tdCenter" ng-bind="telefone.numero"></td>
+										</tr>
+									</tbody>
+								</table>
+							</tr>
+							<tr>
+								<table class="table table-bordered table-striped ew-table" ng-show="ctrl.address">
+									<thead>
+										<tr>
+											<th style="width:35%;">Logradouro</th>
+											<th style="width:5%;">UF</th>
+											<th style="width:20%;">Cidade</th>
+											<th style="width:20%;">Bairro</th>
+											<th style="width:20%;">CEP</th>
+											<!--<th style="width:15%;">Latitude</th>
+							<th style="width:15%;">Longitude</th>-->
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="endereco in ctrl.ListaEnderecos">
+											<td class="tdCenter" ng-bind="endereco.logradouro"></td>
+											<td class="tdCenter" ng-bind="endereco.uf"></td>
+											<td class="tdCenter" ng-bind="endereco.cidade"></td>
+											<td class="tdCenter" ng-bind="endereco.bairro"></td>
+											<td class="tdCenter" ng-bind="endereco.cep"></td>
+											<!--<td class="tdCenter" ng-bind="endereco.latitude"></td>
+							<td class="tdCenter" ng-bind="endereco.longitude"></td>-->
+										</tr>
+									</tbody>
+								</table>
+							</tr>
+						</tbody>
+					</table>
+					</br>
+					<p>{{ ctrl.message }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

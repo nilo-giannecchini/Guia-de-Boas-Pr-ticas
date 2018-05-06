@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body>
+	<div ng-controller="ContatoCtrl as ctrl">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul style="list-style-type:none">
+						<li>
+							<h3>Contatos</h3>
+						</li>
+						<li>
+							<input type="text" placeholder="Nome" name="nome" maxlength="10" minlength="3" ng-model="ctrl.contato.nome" required>
+						</li>
+						<li>
+							<input type="text" placeholder="Sobrenome" name="sobrenome" ng-model="ctrl.contato.sobrenome" required>
+						</li>
+						<li>
+							<input type="email" placeholder="E-mail" name="email" ng-model="ctrl.contato.email" required>
+						</li>
+					</ul>
+					</br>
+					<ul style="list-style-type:none">
+						<li>
+							<h3>Telefones</h3>
+						</li>
+						<li>
+							<input type="text" placeholder="Descrição Telefone" name="descricao" ng-model="ctrl.telefone.descricao">
+						</li>
+						<li>
+							<input type="text" placeholder="Número Telefone" name="numero" ng-model="ctrl.telefone.numero">
+						</li>
+						<li>
+							<button type="submit" class="button button-block button-positive" ng-click="ctrl.addPhone(ctrl.telefone)">Adicionar Telefone</button>
+						</li>
+					</ul>
+					</br>
+					<table class="table table-bordered table-striped ew-table" ng-show="ctrl.phone">
+						<thead>
+							<tr>
+								<th style="width:33%;">Descrição Telefone</th>
+								<th style="width:33%;">Número Telefone</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="telefone in ctrl.ListaTelefones">
+								<td class="tdCenter" ng-bind="telefone.descricao"></td>
+								<td class="tdCenter" ng-bind="telefone.numero"></td>
+							</tr>
+						</tbody>
+					</table>
+					</br>
+					<button type="submit" class="button button-block button-positive" ng-click="ctrl.click()">{{ ctrl.acao }}</button>
+					</br>
+					<p>{{ ctrl.message }}</p>
+				</div>
+			</div>
+		</div>
+		</br>
+	</div>
+</body>
+
+</html>

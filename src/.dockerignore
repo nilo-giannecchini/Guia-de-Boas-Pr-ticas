@@ -1,0 +1,13 @@
+node_modules
+reports
+test
+npm-debug.log
+.git
+.gitignore
+.eslintrc.json
+Dockerfile
+gulpfile.js
+Jenkinsfile
+karma.conf.js
+LICENSE
+README.md

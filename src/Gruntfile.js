@@ -3,8 +3,6 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     require('load-grunt-tasks')(grunt);
 
-    grunt.loadNpmTasks('grunt-githooks');
-
     grunt.initConfig({
         // for front-end tdd
         karma: {
@@ -21,14 +19,12 @@ module.exports = function (grunt) {
                 options: {
                     template: 'hooks/pre-commit.js'
                 },
-                'pre-commit': 'karma'
+                'pre-commit': 'karma:test'
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-githooks');
 
-    grunt.registerTask('hello', 'default task description', function () {
-        console.log('hello world');
-    });
     grunt.registerTask('default', ['githooks', 'karma:test']);
 };
