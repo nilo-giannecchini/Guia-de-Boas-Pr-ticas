@@ -7,7 +7,8 @@
     "license": "ISC",
     "scripts": {
         "mount": "npm install && bower install",
-        "test": "node node_modules/grunt/bin/grunt"
+        "test": "node node_modules/grunt/bin/grunt",
+        "postinstall": "grunt githooks"
     },
     "dependencies": {
         "express": "latest"
@@ -23,14 +24,14 @@
         "grunt-githooks": "latest",
         "grunt-karma": "latest",
         "jasmine": "latest",
+        "jasmine-core": "latest",
         "karma": "latest",
         "karma-coverage": "latest",
+        "karma-html-reporter": "latest",
         "karma-jasmine": "latest",
+        "karma-jasmine-html-reporter": "latest",
         "karma-junit-reporter": "latest",
         "karma-phantomjs-launcher": "latest",
-        "karma-html-reporter": "latest",
-        "karma-jasmine-html-reporter": "latest",
-        "jasmine-core": "latest",
         "load-grunt-tasks": "latest",
         "time-grunt": "latest"
     }
