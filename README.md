@@ -378,7 +378,7 @@ Se o código utilizar bibliotecas de mercado, não é necessário testar os mét
 
 #### Um teste único por função
 
-Os testes desenvolvidos devem ser pequenos, funcionais e específicos para um mtodo. Testes desenvolvidos para vários métodos é um erro que dificulta a manutenção e a leitura dos testes.
+Os testes desenvolvidos devem ser pequenos, funcionais e específicos para um método. Testes desenvolvidos para vários métodos é um erro que dificulta a manutenção e a leitura dos testes.
 
 #### Testes unitários
 
@@ -494,7 +494,7 @@ Muitos testes de desempenho não consideram a utilização de toda a estrutura a
 
 #### Isole o ambiente de testes
 
-Utilizando um ambiente de testes dedicado, é importante isolar a sua rede do restante da rede da empresa para que nenhuma das duas seja afetada durante as atividades de teste. Além dos testes utilizarem uma parte considerável da banda de rede, a própria atividade da empresa pode afetar as simulações e seus resultados, pois obviamente utiliza uma parte da banda. Também se deve garantir que somente usuários virtuais autorizados acessarão seu aplicativo em teste.
+Utilizando um ambiente de testes dedicado, é importante isolar a sua rede do restante da rede da empresa para que nenhuma das duas seja afetada durante as atividades de teste. Além dos testes utilizarem uma parte considerável da banda de rede, a própria atividade da empresa pode afetar as simulações e seus resultados, pois obviamente utiliza uma parte da banda. Também se deve garantir que somente usuários virtuais autorizados terão acesso seu aplicativo em teste.
 
 #### Participe ativamente desde o início do projeto
 
@@ -515,7 +515,7 @@ O ideal é sempre determinar uma quantidade de usuários que serão atendidos po
 
 #### Faça a sondagem com um único usuário
 
-Muitos problemas no comportamento do sistema só são detectados ao interagir diretamente com a aplicação quando ela está sendo submetida aos testes de dsemepenho. Uma lentidão em uma rotina que não estava no plano de testes pode esconder possíveis gargalos da aplicação.
+Muitos problemas no comportamento do sistema só são detectados ao interagir diretamente com a aplicação quando ela está sendo submetida aos testes de desempenho. Uma lentidão em uma rotina que não estava no plano de testes pode esconder possíveis gargalos da aplicação.
 
 ## Más práticas
 
